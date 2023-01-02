@@ -10,27 +10,33 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons:
-  material_design_icons_flutter:
-  flutter_hooks:
-  dio:
-  pretty_dio_logger:
-  dio_cache_interceptor:
-  dio_logging_interceptor:
-  mockito:
-  intl:
-  json_annotation:
-  freezed_annotation:
-
+  cupertino_icons: any
+  material_design_icons_flutter: any
+  flutter_hooks: any
+  stacked: any
+  stacked_services: any
+  provider: any
+  flutter_riverpod: any
+  dio: any
+  pretty_dio_logger: any
+  dio_cache_interceptor: any
+  dio_logging_interceptor: any
+  mockito: any
+  intl: any
+  json_annotation: any
+  freezed_annotation: any
+  dartz: any
+  bot_toast: any
+  flutter_spinkit: any
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints:
-  build_runner:
-  json_serializable:
-  freezed:
+  flutter_lints: any
+  build_runner: any
+  json_serializable: any
+  freezed: any
 
 flutter:
   uses-material-design: true

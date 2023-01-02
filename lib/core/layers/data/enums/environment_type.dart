@@ -1,0 +1,1 @@
+enum EnvironmentType { production, acceptance, testing, development, }
