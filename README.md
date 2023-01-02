@@ -1,4 +1,5 @@
-# untitled05
+# Flutter Clean Architecture Example
+Course: https://www.udemy.com/course/flutter-clean-architecture-2022-flutter-3-in-arabic/
 
 A new Flutter project.
 
