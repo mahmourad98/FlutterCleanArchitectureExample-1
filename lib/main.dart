@@ -6,7 +6,7 @@ import 'package:untitled05/core/layers/data/enums/environment_type.dart';
 import 'package:untitled05/out-buildings/development_tools_wrapper.dart';
 
 ///SETTING UP THE ENVIRONMENT TYPE
-const _environment = String.fromEnvironment("ENV", defaultValue: "",);
+const _environment = String.fromEnvironment("ENV", defaultValue: "DEVELOPMENT",);
 final EnvironmentType _envType = _environment.getEnvTypeFromString();
 
 ///HTTP OVERRIDES

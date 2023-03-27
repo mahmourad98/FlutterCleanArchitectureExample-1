@@ -4,11 +4,11 @@ part 'now_playing_movies.g.dart';
 
 @JsonSerializable(explicitToJson: true,)
 class NowPlayingMovies {
-  final DateRange? dates;
-  final int? page;
-  final List<NowPlayingMovie>? results;
-  final int? totalPages;
-  final int? totalResults;
+  DateRange? dates;
+  int? page;
+  List<NowPlayingMovie>? results;
+  int? totalPages;
+  int? totalResults;
 
   NowPlayingMovies({
     this.dates,
@@ -41,8 +41,8 @@ class NowPlayingMovies {
 
 @JsonSerializable()
 class DateRange {
-  final String? maximum;
-  final String? minimum;
+  String? maximum;
+  String? minimum;
 
   DateRange({
     this.maximum,
@@ -56,20 +56,20 @@ class DateRange {
 
 @JsonSerializable()
 class NowPlayingMovie {
-  final bool? adult;
-  final String? backdropPath;
-  final List<int>? genreIds;
-  final int? id;
-  final String? originalLanguage;
-  final String? originalTitle;
-  final String? overview;
-  final double? popularity;
-  final String? posterPath;
-  final String? releaseDate;
-  final String? title;
-  final bool? video;
-  final double? voteAverage;
-  final int? voteCount;
+  bool? adult;
+  String? backdropPath;
+  List<int>? genreIds;
+  int? id;
+  String? originalLanguage;
+  String? originalTitle;
+  String? overview;
+  double? popularity;
+  String? posterPath;
+  String? releaseDate;
+  String? title;
+  bool? video;
+  double? voteAverage;
+  int? voteCount;
 
   NowPlayingMovie({
     this.adult,

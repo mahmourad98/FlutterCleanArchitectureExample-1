@@ -2,14 +2,14 @@ enum EnvironmentType { production, acceptance, testing, development, }
 
 extension EnvTypeFromString on String {
   EnvironmentType getEnvTypeFromString() {
-    final String _env = this;
-    if (_env == EnvironmentType.testing.appMode) {
+    final String env = this;
+    if (env == EnvironmentType.testing.appMode) {
       return EnvironmentType.testing;
     }
-    if (_env == EnvironmentType.acceptance.appMode) {
+    if (env == EnvironmentType.acceptance.appMode) {
       return EnvironmentType.acceptance;
     }
-    if (_env == EnvironmentType.production.appMode) {
+    if (env == EnvironmentType.production.appMode) {
       return EnvironmentType.production;
     } else {
       return EnvironmentType.development;
@@ -50,13 +50,13 @@ extension EnvInfo on EnvironmentType {
   String _appMode() {
     switch (this) {
       case EnvironmentType.production:
-      return "";
+      return "PRODUCTION";
       case EnvironmentType.acceptance:
-      return "";
+      return "ACCEPTANCE";
       case EnvironmentType.testing:
-      return "";
+      return "TESTING";
       default:
-      return "";
+      return "DEVELOPMENT";
     }
   }
 
