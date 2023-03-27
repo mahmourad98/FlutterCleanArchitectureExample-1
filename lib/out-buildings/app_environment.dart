@@ -11,13 +11,11 @@ extension EnvTypeInfo on EnvironmentType {
   String _envName() {
     switch (this) {
       case EnvironmentType.development:
-        return "DEVELOPMENT";
+      return "DEVELOPMENT";
       case EnvironmentType.testing:
-        return "TESTING";
+      return "TESTING";
       case EnvironmentType.acceptance:
-        return "ACCEPTANCE";
-      case EnvironmentType.production:
-        return "PRODUCTION";
+      return "ACCEPTANCE";
       default:
         return "PRODUCTION";
     }
@@ -27,29 +25,30 @@ extension EnvTypeInfo on EnvironmentType {
   String _apiUrl() {
     switch (this) {
       case EnvironmentType.development:
-        return "https://www.staging.medexsepeti.ae/api/";
+      return "";
       case EnvironmentType.testing:
-        return "https://www.staging.medexsepeti.ae/api/";
+      return "";
       case EnvironmentType.acceptance:
-        return "https://medexsepeti.ae/api/";
-      case EnvironmentType.production:
-        return "https://medexsepeti.ae/api/";
+      return "";
       default:
-        return "https://medexsepeti.ae/api/";
+      return "";
     }
   }
+
+  bool isDebugMode() => (this == EnvironmentType.development);
+  bool isReleaseMode() => (this == EnvironmentType.testing) || (this == EnvironmentType.acceptance) ||(this == EnvironmentType.production);
 }
 
 extension EnvTypeFromString on String {
   EnvironmentType getEnvType() {
-    if (this == EnvironmentType.testing.envName) {
+    if (this == EnvironmentType.development.envName) {
+      return EnvironmentType.development;
+    } else if (this == EnvironmentType.testing.envName) {
       return EnvironmentType.testing;
     } else if (this == EnvironmentType.acceptance.envName) {
       return EnvironmentType.acceptance;
-    } else if (this == EnvironmentType.production.envName) {
-      return EnvironmentType.production;
     } else {
-      return EnvironmentType.development;
+      return EnvironmentType.production;
     }
   }
 }

@@ -2,12 +2,13 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:untitled05/app/app_entry_point.dart';
-import 'package:untitled05/core/layers/data/enums/environment_type.dart';
+import 'package:untitled05/out-buildings/app_environment.dart';
+import 'package:untitled05/out-buildings/app_logger.dart';
 import 'package:untitled05/out-buildings/development_tools_wrapper.dart';
 
 ///SETTING UP THE ENVIRONMENT TYPE
-const _environment = String.fromEnvironment("ENV", defaultValue: "DEVELOPMENT",);
-final EnvironmentType _envType = _environment.getEnvTypeFromString();
+const _environment = String.fromEnvironment("ENV", defaultValue: "PRODUCTION",);
+final EnvironmentType _envType = _environment.getEnvType();
 
 ///HTTP OVERRIDES
 class MyHttpOverrides extends HttpOverrides {
@@ -18,6 +19,7 @@ class MyHttpOverrides extends HttpOverrides {
 }
 
 void main() async {
+  getLogger(className: "mainMethod",).e(_envType,);
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
   await _appEntryMethod(_envType,);

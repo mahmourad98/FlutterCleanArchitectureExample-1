@@ -7,9 +7,7 @@ import 'package:stacked/stacked.dart';
 import 'package:untitled05/app/app_router.dart';
 import 'package:untitled05/core/extras/helpers/base_view_model_helper.dart';
 import 'package:untitled05/core/extras/utils/app_life_cycle_wrapper_utility.dart';
-import 'package:untitled05/core/layers/data/enums/environment_type.dart';
-import 'package:untitled05/core/layers/domain/entities/movie-model/movie.dart';
-import 'package:untitled05/out-buildings/app_logger.dart';
+import 'package:untitled05/out-buildings/app_environment.dart';
 
 class AppEntryPoint extends HookWidget {
   final EnvironmentType environmentType;
@@ -21,10 +19,6 @@ class AppEntryPoint extends HookWidget {
     useEffect(
       () {
         _setDeviceOrientation();
-        const Movie movie1 = Movie(id: 1, title: "Mahmoud 1", overview: "blablabla", genreIds: [], backdropPath: "", voteAvg: 0.0,);
-        //const Movie movie2 = Movie(id: 1, title: "Mahmoud 1", overview: "blablabla", genreIds: [], backdropPath: "", voteAvg: 0.0,);
-        Movie movie2 = movie1.copyWith(id: 1, );
-        getLogger(className: "AppEntryPoint",).e(movie1.toString() + movie2.toString(),);
         return null;
       },
       const [],
