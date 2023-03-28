@@ -11,8 +11,8 @@ extension FailureMessage on NetworkFailureType{
   }
 }
 
-class NetworkFailure implements Exception {
+class NetworkFailure<T> implements Exception {
   final NetworkFailureType failure;
-  final dynamic error;
+  final T error;
   NetworkFailure(this.failure, this.error,);
 }

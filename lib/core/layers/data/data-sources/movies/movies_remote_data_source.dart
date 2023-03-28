@@ -27,20 +27,20 @@ class MoviesRemoteDataSource extends MoviesBaseDataSource with RemoteDataSourceH
     if (localRequest) {
       allHeaders.putIfAbsent(HttpHeaders.acceptLanguageHeader, () => const Locale('en',).languageCode,);
     }
-    return await _networkService.getHttp<Map<String, dynamic>>(
-      url: getProperUrl(
-        url: "${AppConstants.MOVIES_API_BASE_URL}${MoviesEndPoint.NOW_PLAYING}",
-        params: {
-          ParamsConstants.API_KEY: AppConstants.MOVIES_API_KEY,
-        },
-      ),
-      options: Options(headers: allHeaders,),
-    ).then(
-      (value,) => value.fold(
-        (l,) => Left(l,),
-        (r,) => Right(MoviesDto.fromJson(r,),),
-      ),
-    );
+    try {
+      final result = await _networkService.getHttp<Map<String, dynamic>>(
+        url: getProperUrl(
+          url: "${AppConstants.MOVIES_API_BASE_URL}${MoviesEndPoint.NOW_PLAYING}",
+          params: {
+            ParamsConstants.API_KEY: AppConstants.MOVIES_API_KEY,
+          },
+        ),
+        options: Options(headers: allHeaders,),
+      );
+      return Right(MoviesDto.fromJson(result,),);
+    } on NetworkFailure catch (failure) {
+      return Left(failure,);
+    }
   }
 
   @override
@@ -56,20 +56,20 @@ class MoviesRemoteDataSource extends MoviesBaseDataSource with RemoteDataSourceH
     if (localRequest) {
       allHeaders.putIfAbsent(HttpHeaders.acceptLanguageHeader, () => const Locale('en',).languageCode,);
     }
-    return await _networkService.getHttp<Map<String, dynamic>>(
-      url: getProperUrl(
-        url: "${AppConstants.MOVIES_API_BASE_URL}${MoviesEndPoint.MOST_POPULAR}",
-        params: {
-          ParamsConstants.API_KEY: AppConstants.MOVIES_API_KEY,
-        },
-      ),
-      options: Options(headers: allHeaders,),
-    ).then(
-      (value,) => value.fold(
-        (l,) => Left(l,),
-        (r,) => Right(MoviesDto.fromJson(r,),),
-      ),
-    );
+    try {
+      final result = await _networkService.getHttp<Map<String, dynamic>>(
+        url: getProperUrl(
+          url: "${AppConstants.MOVIES_API_BASE_URL}${MoviesEndPoint.MOST_POPULAR}",
+          params: {
+            ParamsConstants.API_KEY: AppConstants.MOVIES_API_KEY,
+          },
+        ),
+        options: Options(headers: allHeaders,),
+      );
+      return Right(MoviesDto.fromJson(result,),);
+    } on NetworkFailure catch (failure) {
+      return Left(failure,);
+    }
   }
 
   @override
@@ -85,20 +85,20 @@ class MoviesRemoteDataSource extends MoviesBaseDataSource with RemoteDataSourceH
     if (localRequest) {
       allHeaders.putIfAbsent(HttpHeaders.acceptLanguageHeader, () => const Locale('en',).languageCode,);
     }
-    return await _networkService.getHttp<Map<String, dynamic>>(
-      url: getProperUrl(
-        url: "${AppConstants.MOVIES_API_BASE_URL}${MoviesEndPoint.NOW_PLAYING}",
-        params: {
-          ParamsConstants.API_KEY: AppConstants.MOVIES_API_KEY,
-        },
-      ),
-      options: Options(headers: allHeaders,),
-    ).then(
-      (value,) => value.fold(
-        (l,) => Left(l,),
-        (r,) => Right(MoviesDto.fromJson(r,),),
-      ),
-    );
+    try {
+      final result = await _networkService.getHttp<Map<String, dynamic>>(
+        url: getProperUrl(
+          url: "${AppConstants.MOVIES_API_BASE_URL}${MoviesEndPoint.TOP_RATED}",
+          params: {
+            ParamsConstants.API_KEY: AppConstants.MOVIES_API_KEY,
+          },
+        ),
+        options: Options(headers: allHeaders,),
+      );
+      return Right(MoviesDto.fromJson(result,),);
+    } on NetworkFailure catch (failure) {
+      return Left(failure,);
+    }
   }
 
 }

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
@@ -66,7 +65,7 @@ class DioNetworkService {
     _dio.options = _baseOptions;
   }
 
-  Future<Either<NetworkFailure, T>> postHttp<T>({
+  Future<T> postHttp<T>({
     required String url, required Map<String, dynamic> body,
     List<Interceptor>? interceptors, Options? options,
   }) async {
@@ -81,24 +80,24 @@ class DioNetworkService {
         options: options,
       );
       if (response.statusCode == HttpStatus.ok) {
-        return Right(response.data,);
+        return response.data;
       } else {
-        return Left(NetworkFailure(NetworkFailureType.serverError, response.data,),);
+        return throw NetworkFailure<dynamic>(NetworkFailureType.serverError, response.data,);
       }
     } catch (e) {
       e.exceptionErrorLog(CLASS_NAME,);
       ///All exceptions when using Dio, must be dio-error
       if (e is SocketException || e is WebSocketException) {
-        return Left(NetworkFailure(NetworkFailureType.offline, e,),);
+        return throw NetworkFailure<dynamic>(NetworkFailureType.offline, e,);
       } else if(e is DioError && e.type == DioErrorType.connectTimeout) {
-        return Left(NetworkFailure(NetworkFailureType.connectionTimeOut, e,),);
+        return throw NetworkFailure<dynamic>(NetworkFailureType.connectionTimeOut, e,);
       }
       ///return Either-Left
-      return Left(NetworkFailure(NetworkFailureType.unknown, e,),);
+      return throw NetworkFailure<dynamic>(NetworkFailureType.unknown, e,);
     }
   }
 
-  Future<Either<NetworkFailure, T>> multiPartPostHttp<T>({
+  Future<T> multiPartPostHttp<T>({
     required String url, required FormData formData,
     List<Interceptor>? interceptors, Options? options,
     void Function(int, int,)? onSendProgress,
@@ -115,24 +114,24 @@ class DioNetworkService {
         onSendProgress: onSendProgress,
       );
       if (response.statusCode == HttpStatus.ok) {
-        return Right(response.data,);
+        return response.data;
       } else {
-        return Left(NetworkFailure(NetworkFailureType.serverError, response.data,),);
+        return throw NetworkFailure<dynamic>(NetworkFailureType.serverError, response.data,);
       }
     } catch (e) {
       e.exceptionErrorLog(CLASS_NAME,);
       ///All exceptions when using Dio, must be dio-error
       if (e is SocketException || e is WebSocketException) {
-        return Left(NetworkFailure(NetworkFailureType.offline, e,),);
+        return throw NetworkFailure<dynamic>(NetworkFailureType.offline, e,);
       } else if(e is DioError && e.type == DioErrorType.connectTimeout) {
-        return Left(NetworkFailure(NetworkFailureType.connectionTimeOut, e,),);
+        return throw NetworkFailure<dynamic>(NetworkFailureType.connectionTimeOut, e,);
       }
       ///return Either-Left
-      return Left(NetworkFailure(NetworkFailureType.unknown, e,),);
+      return throw NetworkFailure<dynamic>(NetworkFailureType.unknown, e,);
     }
   }
 
-  Future<Either<NetworkFailure, T>> getHttp<T>({
+  Future<T> getHttp<T>({
     required String url, List<Interceptor>? interceptors, Options? options,
   }) async {
     /// Add request interceptors [interceptors]
@@ -148,21 +147,21 @@ class DioNetworkService {
         options: options,
       );
       if (response.statusCode == HttpStatus.ok) {
-        return Right(response.data,);
+        return response.data;
       }
       else {
-        return Left(NetworkFailure(NetworkFailureType.serverError, response.data,),);
+        return throw NetworkFailure<dynamic>(NetworkFailureType.serverError, response.data,);
       }
     } catch (e) {
       e.exceptionErrorLog(CLASS_NAME,);
       ///All exceptions when using Dio, must be dio-error
-      if (e is SocketException) {
-        return Left(NetworkFailure(NetworkFailureType.offline, e,),);
+      if (e is SocketException || e is WebSocketException) {
+        return throw NetworkFailure<dynamic>(NetworkFailureType.offline, e,);
       } else if(e is DioError && e.type == DioErrorType.connectTimeout) {
-        return Left(NetworkFailure(NetworkFailureType.connectionTimeOut, e,),);
+        return throw NetworkFailure<dynamic>(NetworkFailureType.connectionTimeOut, e,);
       }
       ///return Either-Left
-      return Left(NetworkFailure(NetworkFailureType.unknown, e,),);
+      return throw NetworkFailure<dynamic>(NetworkFailureType.unknown, e,);
     }
   }
 
