@@ -5,6 +5,7 @@ import 'package:untitled05/app/app_entry_point.dart';
 import 'package:untitled05/out-buildings/app_environment.dart';
 import 'package:untitled05/out-buildings/app_logger.dart';
 import 'package:untitled05/out-buildings/development_tools_wrapper.dart';
+import 'package:untitled05/out-buildings/service_locator.dart';
 
 ///SETTING UP THE ENVIRONMENT TYPE
 const _environment = String.fromEnvironment("ENV", defaultValue: "PRODUCTION",);
@@ -33,7 +34,7 @@ void main() async {
 
 Future _appEntryMethod(EnvironmentType environmentType,) async {
   try {
-    //ToDo: IMPLEMENT THE PRE-REQUESTS
+    await setupServiceLocator(environmentType,);
   } on Exception catch (e) {
     log(e.toString(), name: _envType.name,);
   }

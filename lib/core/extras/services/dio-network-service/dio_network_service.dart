@@ -26,9 +26,9 @@ class DioNetworkService {
 
   ///BASE OPTIONS
   final BaseOptions _baseOptions = BaseOptions(
-    connectTimeout: 60,
-    sendTimeout: 60,
-    receiveTimeout: 60,
+    connectTimeout: 60000,
+    sendTimeout: 60000,
+    receiveTimeout: 60000,
   );
 
   ///INTERCEPTORS

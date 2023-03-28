@@ -17,7 +17,7 @@ class RemoteDataSourceHelper {
     Map? params,
     String? stringParams,
   }) {
-    final urlBuffer = StringBuffer()..write(this,);
+    final urlBuffer = StringBuffer()..write(url,);
 
     ///Params object
     final allParams = {
@@ -32,8 +32,8 @@ class RemoteDataSourceHelper {
       urlBuffer.write(stringParams,);
     }
 
-    final url = urlBuffer.toString();
-    return url;
+    final finalUrl = urlBuffer.toString();
+    return finalUrl;
   }
 
 }
