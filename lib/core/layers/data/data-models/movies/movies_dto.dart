@@ -1,16 +1,16 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'now_playing_movies.g.dart';
+part 'movies_dto.g.dart';
 
 @JsonSerializable(explicitToJson: true,)
-class NowPlayingMovies {
+class MoviesDto {
   DateRange? dates;
   int? page;
-  List<NowPlayingMovie>? results;
+  List<Movie>? results;
   int? totalPages;
   int? totalResults;
 
-  NowPlayingMovies({
+  MoviesDto({
     this.dates,
     this.page,
     this.results,
@@ -18,14 +18,14 @@ class NowPlayingMovies {
     this.totalResults,
   });
 
-  NowPlayingMovies copyWith({
+  MoviesDto copyWith({
     DateRange? dates,
     int? page,
-    List<NowPlayingMovie>? results,
+    List<Movie>? results,
     int? totalPages,
     int? totalResults,
   }) {
-    return NowPlayingMovies(
+    return MoviesDto(
       dates: dates ?? this.dates,
       page: page ?? this.page,
       results: results ?? this.results,
@@ -34,9 +34,9 @@ class NowPlayingMovies {
     );
   }
 
-  factory NowPlayingMovies.fromJson(Map<String, dynamic> json) => _$NowPlayingMoviesFromJson(json,);
+  factory MoviesDto.fromJson(Map<String, dynamic> json) => _$MoviesDtoFromJson(json,);
 
-  Map<String, dynamic> toJson() => _$NowPlayingMoviesToJson(this,);
+  Map<String, dynamic> toJson() => _$MoviesDtoToJson(this,);
 }
 
 @JsonSerializable()
@@ -55,7 +55,7 @@ class DateRange {
 }
 
 @JsonSerializable()
-class NowPlayingMovie {
+class Movie {
   bool? adult;
   String? backdropPath;
   List<int>? genreIds;
@@ -71,7 +71,7 @@ class NowPlayingMovie {
   double? voteAverage;
   int? voteCount;
 
-  NowPlayingMovie({
+  Movie({
     this.adult,
     this.backdropPath,
     this.genreIds,
@@ -88,7 +88,7 @@ class NowPlayingMovie {
     this.voteCount,
   });
 
-  factory NowPlayingMovie.fromJson(Map<String, dynamic> json,) => _$NowPlayingMovieFromJson(json,);
+  factory Movie.fromJson(Map<String, dynamic> json,) => _$MovieFromJson(json,);
 
-  Map<String, dynamic> toJson() => _$NowPlayingMovieToJson(this,);
+  Map<String, dynamic> toJson() => _$MovieToJson(this,);
 }

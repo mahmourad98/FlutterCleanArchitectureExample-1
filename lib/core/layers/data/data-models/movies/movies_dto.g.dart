@@ -1,26 +1,24 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'now_playing_movies.dart';
+part of 'movies_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-NowPlayingMovies _$NowPlayingMoviesFromJson(Map<String, dynamic> json) =>
-    NowPlayingMovies(
+MoviesDto _$MoviesDtoFromJson(Map<String, dynamic> json) => MoviesDto(
       dates: json['dates'] == null
           ? null
           : DateRange.fromJson(json['dates'] as Map<String, dynamic>),
       page: json['page'] as int?,
       results: (json['results'] as List<dynamic>?)
-          ?.map((e) => NowPlayingMovie.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => Movie.fromJson(e as Map<String, dynamic>))
           .toList(),
       totalPages: json['totalPages'] as int?,
       totalResults: json['totalResults'] as int?,
     );
 
-Map<String, dynamic> _$NowPlayingMoviesToJson(NowPlayingMovies instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$MoviesDtoToJson(MoviesDto instance) => <String, dynamic>{
       'dates': instance.dates?.toJson(),
       'page': instance.page,
       'results': instance.results?.map((e) => e.toJson()).toList(),
@@ -38,8 +36,7 @@ Map<String, dynamic> _$DateRangeToJson(DateRange instance) => <String, dynamic>{
       'minimum': instance.minimum,
     };
 
-NowPlayingMovie _$NowPlayingMovieFromJson(Map<String, dynamic> json) =>
-    NowPlayingMovie(
+Movie _$MovieFromJson(Map<String, dynamic> json) => Movie(
       adult: json['adult'] as bool?,
       backdropPath: json['backdropPath'] as String?,
       genreIds:
@@ -57,8 +54,7 @@ NowPlayingMovie _$NowPlayingMovieFromJson(Map<String, dynamic> json) =>
       voteCount: json['voteCount'] as int?,
     );
 
-Map<String, dynamic> _$NowPlayingMovieToJson(NowPlayingMovie instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$MovieToJson(Movie instance) => <String, dynamic>{
       'adult': instance.adult,
       'backdropPath': instance.backdropPath,
       'genreIds': instance.genreIds,

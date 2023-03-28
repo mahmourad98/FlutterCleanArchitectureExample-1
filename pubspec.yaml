@@ -21,6 +21,8 @@ dependencies:
   stacked: any
   stacked_services: any
   auto_route: any
+  get_it: any
+  observable_ish: any
   #NETWORK
   dio: any
   dio_interceptors: any
@@ -41,6 +43,9 @@ dependencies:
   flutter_phoenix: any
   device_preview: any
   requests_inspector: any
+  open_file: any
+  path: any
+  path_provider: any
   #Testing
   mockito: any
 
@@ -60,6 +65,7 @@ dependency_overrides:
   build_runner: 2.3.3
   json_serializable: 6.6.1
   freezed: 2.3.2
+  open_file: 3.2.1
 
 flutter:
   uses-material-design: true

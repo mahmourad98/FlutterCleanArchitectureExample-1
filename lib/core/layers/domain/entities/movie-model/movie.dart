@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:untitled05/core/layers/data/data-models/now-playing-movies/now_playing_movies.dart';
+import 'package:untitled05/core/layers/data/data-models/movies/movies_dto.dart' as movies_dto;
 
 part 'movie.freezed.dart';
 
@@ -14,7 +14,7 @@ class Movie with _$Movie {
     required double voteAvg,
   }) = _Movie;
 
-  factory Movie.from(NowPlayingMovie other,) => Movie(
+  factory Movie.from(movies_dto.Movie other,) => Movie(
     id: other.id ?? 0,
     title: other.title ?? "",
     backdropPath: other.backdropPath ?? "",
