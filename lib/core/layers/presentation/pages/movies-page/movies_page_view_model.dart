@@ -22,13 +22,13 @@ class MoviesPageViewModel extends BaseViewModel with BaseViewModelHelper{
   Future<void> _getNowPlayingMovie() async {
     return await _nowPlayingMoviesUsecase.call().then(
       (value,) => {
-        _nowPlayingMovies.addAll(
-          value.foldRight<List<Movie>>(
-            <Movie>[],
-            (r, _,) => r,
-          ),
+        value.fold(
+          (l,) => setError(l,),
+          (r,) => {
+            _nowPlayingMovies..clear()..addAll(r,),
+            notifyListeners(),
+          },
         ),
-        notifyListeners(),
       },
     );
   }
@@ -36,13 +36,13 @@ class MoviesPageViewModel extends BaseViewModel with BaseViewModelHelper{
   Future<void> _getMostPopularMovie() async {
     _mostPopularMoviesUsecase.call().then(
       (value,) => {
-        _mostPopularMovies.addAll(
-          value.foldRight<List<Movie>>(
-            <Movie>[],
-            (r, _,) => r,
-          ),
+        value.fold(
+          (l,) => setError(l,),
+          (r,) => {
+            _mostPopularMovies..clear()..addAll(r,),
+            notifyListeners(),
+          },
         ),
-        notifyListeners(),
       },
     );
 
@@ -51,13 +51,13 @@ class MoviesPageViewModel extends BaseViewModel with BaseViewModelHelper{
   Future<void> _getTopRatedMovie() async {
     _topRatedMoviesUsecase.call().then(
       (value,) => {
-        _topRatedMovies.addAll(
-          value.foldRight<List<Movie>>(
-            <Movie>[],
-            (r, _,) => r,
-          ),
+        value.fold(
+          (l,) => setError(l,),
+          (r,) => {
+            _topRatedMovies..clear()..addAll(r,),
+            notifyListeners(),
+          },
         ),
-        notifyListeners(),
       },
     );
   }
