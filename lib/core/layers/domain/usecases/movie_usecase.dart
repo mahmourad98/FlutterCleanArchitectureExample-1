@@ -26,10 +26,10 @@ class NowPlayingMoviesUsecase extends MoviesUsecase{
   }
 }
 
-class PopularMoviesUsecase extends MoviesUsecase {
+class MostPopularMoviesUsecase extends MoviesUsecase {
   final MoviesBaseContract _movieBaseContract;
 
-  PopularMoviesUsecase(this._movieBaseContract,);
+  MostPopularMoviesUsecase(this._movieBaseContract,);
 
   Future<Either<NetworkFailure, List<Movie>>> call() async {
     return await _movieBaseContract.getMostPopularMovies(

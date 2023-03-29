@@ -12,14 +12,16 @@ class Movie with _$Movie {
     required String overview,
     required List<int> genreIds,
     required double voteAvg,
+    required String releaseDate,
   }) = _Movie;
 
   factory Movie.from(movies_dto.Movie other,) => Movie(
     id: other.id ?? 0,
     title: other.title ?? "",
-    backdropPath: other.backdropPath ?? "",
+    backdropPath: other.backdrop_path ?? "",
     overview: other.overview ?? "",
-    genreIds: other.genreIds ?? const [],
-    voteAvg: other.voteAverage ?? 0.0,
+    genreIds: other.genre_ids ?? const [],
+    voteAvg: other.vote_average ?? 0.0,
+    releaseDate: other.release_date ?? "",
   );
 }

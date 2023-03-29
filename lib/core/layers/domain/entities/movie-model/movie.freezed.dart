@@ -22,6 +22,7 @@ mixin _$Movie {
   String get overview => throw _privateConstructorUsedError;
   List<int> get genreIds => throw _privateConstructorUsedError;
   double get voteAvg => throw _privateConstructorUsedError;
+  String get releaseDate => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MovieCopyWith<Movie> get copyWith => throw _privateConstructorUsedError;
@@ -38,7 +39,8 @@ abstract class $MovieCopyWith<$Res> {
       String backdropPath,
       String overview,
       List<int> genreIds,
-      double voteAvg});
+      double voteAvg,
+      String releaseDate});
 }
 
 /// @nodoc
@@ -60,6 +62,7 @@ class _$MovieCopyWithImpl<$Res, $Val extends Movie>
     Object? overview = null,
     Object? genreIds = null,
     Object? voteAvg = null,
+    Object? releaseDate = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -86,6 +89,10 @@ class _$MovieCopyWithImpl<$Res, $Val extends Movie>
           ? _value.voteAvg
           : voteAvg // ignore: cast_nullable_to_non_nullable
               as double,
+      releaseDate: null == releaseDate
+          ? _value.releaseDate
+          : releaseDate // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -102,7 +109,8 @@ abstract class _$$_MovieCopyWith<$Res> implements $MovieCopyWith<$Res> {
       String backdropPath,
       String overview,
       List<int> genreIds,
-      double voteAvg});
+      double voteAvg,
+      String releaseDate});
 }
 
 /// @nodoc
@@ -120,6 +128,7 @@ class __$$_MovieCopyWithImpl<$Res> extends _$MovieCopyWithImpl<$Res, _$_Movie>
     Object? overview = null,
     Object? genreIds = null,
     Object? voteAvg = null,
+    Object? releaseDate = null,
   }) {
     return _then(_$_Movie(
       id: null == id
@@ -146,6 +155,10 @@ class __$$_MovieCopyWithImpl<$Res> extends _$MovieCopyWithImpl<$Res, _$_Movie>
           ? _value.voteAvg
           : voteAvg // ignore: cast_nullable_to_non_nullable
               as double,
+      releaseDate: null == releaseDate
+          ? _value.releaseDate
+          : releaseDate // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -159,7 +172,8 @@ class _$_Movie implements _Movie {
       required this.backdropPath,
       required this.overview,
       required final List<int> genreIds,
-      required this.voteAvg})
+      required this.voteAvg,
+      required this.releaseDate})
       : _genreIds = genreIds;
 
   @override
@@ -180,10 +194,12 @@ class _$_Movie implements _Movie {
 
   @override
   final double voteAvg;
+  @override
+  final String releaseDate;
 
   @override
   String toString() {
-    return 'Movie(id: $id, title: $title, backdropPath: $backdropPath, overview: $overview, genreIds: $genreIds, voteAvg: $voteAvg)';
+    return 'Movie(id: $id, title: $title, backdropPath: $backdropPath, overview: $overview, genreIds: $genreIds, voteAvg: $voteAvg, releaseDate: $releaseDate)';
   }
 
   @override
@@ -198,12 +214,21 @@ class _$_Movie implements _Movie {
             (identical(other.overview, overview) ||
                 other.overview == overview) &&
             const DeepCollectionEquality().equals(other._genreIds, _genreIds) &&
-            (identical(other.voteAvg, voteAvg) || other.voteAvg == voteAvg));
+            (identical(other.voteAvg, voteAvg) || other.voteAvg == voteAvg) &&
+            (identical(other.releaseDate, releaseDate) ||
+                other.releaseDate == releaseDate));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, title, backdropPath,
-      overview, const DeepCollectionEquality().hash(_genreIds), voteAvg);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      title,
+      backdropPath,
+      overview,
+      const DeepCollectionEquality().hash(_genreIds),
+      voteAvg,
+      releaseDate);
 
   @JsonKey(ignore: true)
   @override
@@ -219,7 +244,8 @@ abstract class _Movie implements Movie {
       required final String backdropPath,
       required final String overview,
       required final List<int> genreIds,
-      required final double voteAvg}) = _$_Movie;
+      required final double voteAvg,
+      required final String releaseDate}) = _$_Movie;
 
   @override
   int get id;
@@ -233,6 +259,8 @@ abstract class _Movie implements Movie {
   List<int> get genreIds;
   @override
   double get voteAvg;
+  @override
+  String get releaseDate;
   @override
   @JsonKey(ignore: true)
   _$$_MovieCopyWith<_$_Movie> get copyWith =>

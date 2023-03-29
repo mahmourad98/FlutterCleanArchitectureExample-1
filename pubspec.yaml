@@ -16,6 +16,11 @@ dependencies:
   auto_size_text: any
   bot_toast: any
   flutter_spinkit: any
+  shimmer: any
+  google_fonts: any
+  carousel_slider: any
+  cached_network_image: any
+  animate_do: any
   #Core
   flutter_hooks: any
   stacked: any

@@ -1,38 +1,24 @@
+// ignore_for_file: non_constant_identifier_names
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'movies_dto.g.dart';
+
 
 @JsonSerializable(explicitToJson: true,)
 class MoviesDto {
   DateRange? dates;
   int? page;
   List<Movie>? results;
-  int? totalPages;
-  int? totalResults;
+  int? total_pages;
+  int? total_results;
 
   MoviesDto({
     this.dates,
     this.page,
     this.results,
-    this.totalPages,
-    this.totalResults,
+    this.total_pages,
+    this.total_results,
   });
-
-  MoviesDto copyWith({
-    DateRange? dates,
-    int? page,
-    List<Movie>? results,
-    int? totalPages,
-    int? totalResults,
-  }) {
-    return MoviesDto(
-      dates: dates ?? this.dates,
-      page: page ?? this.page,
-      results: results ?? this.results,
-      totalPages: totalPages ?? this.totalPages,
-      totalResults: totalResults ?? this.totalResults,
-    );
-  }
 
   factory MoviesDto.fromJson(Map<String, dynamic> json) => _$MoviesDtoFromJson(json,);
 
@@ -57,35 +43,35 @@ class DateRange {
 @JsonSerializable()
 class Movie {
   bool? adult;
-  String? backdropPath;
-  List<int>? genreIds;
+  String? backdrop_path;
+  List<int>? genre_ids;
   int? id;
-  String? originalLanguage;
-  String? originalTitle;
+  String? original_language;
+  String? original_title;
   String? overview;
   double? popularity;
-  String? posterPath;
-  String? releaseDate;
+  String? poster_path;
+  String? release_date;
   String? title;
   bool? video;
-  double? voteAverage;
-  int? voteCount;
+  double? vote_average;
+  int? vote_count;
 
   Movie({
     this.adult,
-    this.backdropPath,
-    this.genreIds,
+    this.backdrop_path,
+    this.genre_ids,
     this.id,
-    this.originalLanguage,
-    this.originalTitle,
+    this.original_language,
+    this.original_title,
     this.overview,
     this.popularity,
-    this.posterPath,
-    this.releaseDate,
+    this.poster_path,
+    this.release_date,
     this.title,
     this.video,
-    this.voteAverage,
-    this.voteCount,
+    this.vote_average,
+    this.vote_count,
   });
 
   factory Movie.fromJson(Map<String, dynamic> json,) => _$MovieFromJson(json,);

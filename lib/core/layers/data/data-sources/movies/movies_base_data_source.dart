@@ -4,7 +4,7 @@ import 'package:untitled05/core/layers/data/data-models/movies/movies_dto.dart';
 
 class MoviesEndPoint {
   static const NOW_PLAYING = "/movie/now_playing";
-  static const MOST_POPULAR = "/movie/now_playing";
+  static const MOST_POPULAR = "/movie/popular";
   static const TOP_RATED = "/movie/top_rated";
 }
 

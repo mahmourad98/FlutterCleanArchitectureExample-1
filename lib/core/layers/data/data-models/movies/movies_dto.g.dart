@@ -14,16 +14,16 @@ MoviesDto _$MoviesDtoFromJson(Map<String, dynamic> json) => MoviesDto(
       results: (json['results'] as List<dynamic>?)
           ?.map((e) => Movie.fromJson(e as Map<String, dynamic>))
           .toList(),
-      totalPages: json['totalPages'] as int?,
-      totalResults: json['totalResults'] as int?,
+      total_pages: json['total_pages'] as int?,
+      total_results: json['total_results'] as int?,
     );
 
 Map<String, dynamic> _$MoviesDtoToJson(MoviesDto instance) => <String, dynamic>{
       'dates': instance.dates?.toJson(),
       'page': instance.page,
       'results': instance.results?.map((e) => e.toJson()).toList(),
-      'totalPages': instance.totalPages,
-      'totalResults': instance.totalResults,
+      'total_pages': instance.total_pages,
+      'total_results': instance.total_results,
     };
 
 DateRange _$DateRangeFromJson(Map<String, dynamic> json) => DateRange(
@@ -38,35 +38,35 @@ Map<String, dynamic> _$DateRangeToJson(DateRange instance) => <String, dynamic>{
 
 Movie _$MovieFromJson(Map<String, dynamic> json) => Movie(
       adult: json['adult'] as bool?,
-      backdropPath: json['backdropPath'] as String?,
-      genreIds:
-          (json['genreIds'] as List<dynamic>?)?.map((e) => e as int).toList(),
+      backdrop_path: json['backdrop_path'] as String?,
+      genre_ids:
+          (json['genre_ids'] as List<dynamic>?)?.map((e) => e as int).toList(),
       id: json['id'] as int?,
-      originalLanguage: json['originalLanguage'] as String?,
-      originalTitle: json['originalTitle'] as String?,
+      original_language: json['original_language'] as String?,
+      original_title: json['original_title'] as String?,
       overview: json['overview'] as String?,
       popularity: (json['popularity'] as num?)?.toDouble(),
-      posterPath: json['posterPath'] as String?,
-      releaseDate: json['releaseDate'] as String?,
+      poster_path: json['poster_path'] as String?,
+      release_date: json['release_date'] as String?,
       title: json['title'] as String?,
       video: json['video'] as bool?,
-      voteAverage: (json['voteAverage'] as num?)?.toDouble(),
-      voteCount: json['voteCount'] as int?,
+      vote_average: (json['vote_average'] as num?)?.toDouble(),
+      vote_count: json['vote_count'] as int?,
     );
 
 Map<String, dynamic> _$MovieToJson(Movie instance) => <String, dynamic>{
       'adult': instance.adult,
-      'backdropPath': instance.backdropPath,
-      'genreIds': instance.genreIds,
+      'backdrop_path': instance.backdrop_path,
+      'genre_ids': instance.genre_ids,
       'id': instance.id,
-      'originalLanguage': instance.originalLanguage,
-      'originalTitle': instance.originalTitle,
+      'original_language': instance.original_language,
+      'original_title': instance.original_title,
       'overview': instance.overview,
       'popularity': instance.popularity,
-      'posterPath': instance.posterPath,
-      'releaseDate': instance.releaseDate,
+      'poster_path': instance.poster_path,
+      'release_date': instance.release_date,
       'title': instance.title,
       'video': instance.video,
-      'voteAverage': instance.voteAverage,
-      'voteCount': instance.voteCount,
+      'vote_average': instance.vote_average,
+      'vote_count': instance.vote_count,
     };
