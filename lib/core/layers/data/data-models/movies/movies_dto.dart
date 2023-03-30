@@ -3,7 +3,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'movies_dto.g.dart';
 
-
 @JsonSerializable(explicitToJson: true,)
 class MoviesDto {
   DateRange? dates;

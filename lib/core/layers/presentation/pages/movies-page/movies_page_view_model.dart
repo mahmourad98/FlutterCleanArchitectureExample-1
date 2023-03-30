@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:untitled05/app/app_router.dart';
 import 'package:untitled05/core/extras/helpers/base_view_model_helper.dart';
 import 'package:untitled05/core/layers/domain/entities/movie-model/movie.dart';
 import 'package:untitled05/core/layers/domain/usecases/movie_usecase.dart';
@@ -20,7 +22,7 @@ class MoviesPageViewModel extends BaseViewModel with BaseViewModelHelper{
 
 
   Future<void> _getNowPlayingMovie() async {
-    return await _nowPlayingMoviesUsecase.call().then(
+    return await _nowPlayingMoviesUsecase().then(
       (value,) => {
         value.fold(
           (l,) => setError(l,),
@@ -34,7 +36,7 @@ class MoviesPageViewModel extends BaseViewModel with BaseViewModelHelper{
   }
 
   Future<void> _getMostPopularMovie() async {
-    _mostPopularMoviesUsecase.call().then(
+    _mostPopularMoviesUsecase().then(
       (value,) => {
         value.fold(
           (l,) => setError(l,),
@@ -49,7 +51,7 @@ class MoviesPageViewModel extends BaseViewModel with BaseViewModelHelper{
   }
 
   Future<void> _getTopRatedMovie() async {
-    _topRatedMoviesUsecase.call().then(
+    _topRatedMoviesUsecase().then(
       (value,) => {
         value.fold(
           (l,) => setError(l,),
@@ -64,7 +66,9 @@ class MoviesPageViewModel extends BaseViewModel with BaseViewModelHelper{
 
   @override
   void onClose() {
-    // TODO: implement onClose
+    if(AppRouter.instance.navKey.currentState != null) {
+      Navigator.of(AppRouter.instance.navKey.currentState!.context,).pop();
+    }
   }
 
   @override
