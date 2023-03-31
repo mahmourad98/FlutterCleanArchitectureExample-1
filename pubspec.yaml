@@ -60,6 +60,7 @@ dev_dependencies:
 
   flutter_lints: any
   build_runner: any
+  built_value_generator: any
   json_serializable: any
   freezed: any
 
@@ -71,6 +72,8 @@ dependency_overrides:
   json_serializable: 6.6.1
   freezed: 2.3.2
   open_file: 3.2.1
+  built_value: 8.4.4
+  built_value_generator: 8.4.4
 
 flutter:
   uses-material-design: true

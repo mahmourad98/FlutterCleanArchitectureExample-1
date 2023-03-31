@@ -1,3 +1,4 @@
+import 'dart:developer' as dev;
 import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
@@ -8,6 +9,8 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:requests_inspector/requests_inspector.dart';
+import 'package:untitled05/core/extras/helpers/common_response_model_helper.dart';
+import 'package:untitled05/core/extras/services/dio-network-service/common-response-model/common_response_model.dart';
 import 'package:untitled05/core/extras/services/dio-network-service/dio_network_errors.dart';
 import 'package:untitled05/out-buildings/app_environment.dart';
 import 'package:untitled05/out-buildings/app_logger.dart';
@@ -16,6 +19,9 @@ import 'package:untitled05/out-buildings/service_locator.dart';
 class DioNetworkService {
   ///ignore: constant_identifier_names
   static const CLASS_NAME = "DioNetworkService";
+
+  static const _jsonDecoder = JsonDecoder();
+  static const _jsonEncoder = JsonEncoder();
 
   ///APP ENVIRONMENT
   AppEnvironment get _env => serviceLocator<AppEnvironment>();
@@ -79,10 +85,11 @@ class DioNetworkService {
         data: jsonEncode(body,),
         options: options,
       );
-      if (response.statusCode == HttpStatus.ok) {
-        return response.data;
+      final CommonResponse commonResponse = CommonResponse.fromJson(responseConverter(response.statusCode, response.data,),);
+      if (commonResponse.status ?? false) {
+        return (commonResponse.data?.value ?? {}) as T;
       } else {
-        return throw NetworkFailure<dynamic>(NetworkFailureType.serverError, response.data,);
+        return throw NetworkFailure<dynamic>(NetworkFailureType.serverError, commonResponse.errors,);
       }
     } catch (e) {
       e.exceptionErrorLog(CLASS_NAME,);
@@ -113,10 +120,11 @@ class DioNetworkService {
         options: options,
         onSendProgress: onSendProgress,
       );
-      if (response.statusCode == HttpStatus.ok) {
-        return response.data;
+      final CommonResponse commonResponse = CommonResponse.fromJson(responseConverter(response.statusCode, response.data,),);
+      if (commonResponse.status ?? false) {
+        return (commonResponse.data?.value ?? {}) as T;
       } else {
-        return throw NetworkFailure<dynamic>(NetworkFailureType.serverError, response.data,);
+        return throw NetworkFailure<dynamic>(NetworkFailureType.serverError, commonResponse.errors,);
       }
     } catch (e) {
       e.exceptionErrorLog(CLASS_NAME,);
@@ -146,11 +154,11 @@ class DioNetworkService {
         url,
         options: options,
       );
-      if (response.statusCode == HttpStatus.ok) {
-        return response.data;
-      }
-      else {
-        return throw NetworkFailure<dynamic>(NetworkFailureType.serverError, response.data,);
+      final CommonResponse commonResponse = CommonResponse.fromJson(responseConverter(response.statusCode, response.data,),);
+      if (commonResponse.status ?? false) {
+        return (commonResponse.data?.value ?? {}) as T;
+      } else {
+        return throw NetworkFailure<dynamic>(NetworkFailureType.serverError, commonResponse.errors,);
       }
     } catch (e) {
       e.exceptionErrorLog(CLASS_NAME,);
