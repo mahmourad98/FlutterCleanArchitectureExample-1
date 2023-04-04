@@ -12,28 +12,19 @@ class RemoteDataSourceHelper {
     return "";
   }
 
-  String getProperUrl({
-    required String url,
-    Map? params,
-    String? stringParams,
-  }) {
+  String getProperUrl({required String url, Map? params, String? stringParams,}) {
     final urlBuffer = StringBuffer()..write(url,);
-
     ///Params object
     final allParams = {
       if (params != null) ...params,
     };
-
     if (allParams.isNotEmpty) {
       urlBuffer.write("?${allParams.toString().replaceAll(", ", "&",).replaceAll(": ", "=",).replaceAll("{", "",).replaceAll("}", "",)}",);
     }
-
     if (stringParams != null) {
       urlBuffer.write(stringParams,);
     }
-
     final finalUrl = urlBuffer.toString();
     return finalUrl;
   }
-
 }

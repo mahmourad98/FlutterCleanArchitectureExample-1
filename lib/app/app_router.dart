@@ -1,9 +1,9 @@
 import 'dart:developer' as dev;
 import 'package:flutter/material.dart';
 import 'package:untitled05/core/layers/data/data-sources/movies/movies_remote_data_source.dart';
-import 'package:untitled05/core/layers/data/repos/movies/movies-repository.dart';
+import 'package:untitled05/core/layers/data/repos/movies/movies_repository.dart';
 import 'package:untitled05/core/layers/domain/entities/movie-model/movie.dart';
-import 'package:untitled05/core/layers/domain/usecases/movie_usecase.dart';
+import 'package:untitled05/core/layers/domain/usecases/movies_usecase.dart';
 import 'package:untitled05/core/layers/presentation/pages/movies-page/movies_page_view.dart';
 
 class AppRouter{

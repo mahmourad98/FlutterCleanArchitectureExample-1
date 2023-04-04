@@ -6,6 +6,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:stacked/stacked.dart';
 import 'package:untitled05/app/app_router.dart';
 import 'package:untitled05/core/extras/helpers/base_view_model_helper.dart';
+import 'package:untitled05/core/extras/utils/app_keyboard_hider_utility.dart';
 import 'package:untitled05/core/extras/utils/app_life_cycle_wrapper_utility.dart';
 import 'package:untitled05/out-buildings/app_environment.dart';
 
@@ -43,6 +44,7 @@ class AppEntryPoint extends HookWidget {
             childWidget = BotToastInit().call(buildContext, childWidget,);
             childWidget = AppEntryPointEnvHelper(childWidget,).renderTreeHandler(environmentType, const [],);
             childWidget = AppLifeCycleWrapper(childWidget, const [],);
+            childWidget = AppKeyboardHiderWrapper(childWidget,);
             return childWidget;
           },
           navigatorObservers: [
