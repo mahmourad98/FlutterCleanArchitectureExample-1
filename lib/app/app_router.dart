@@ -1,9 +1,11 @@
 import 'dart:developer' as dev;
 import 'package:flutter/material.dart';
+import 'package:untitled05/app/app_route_names.dart';
 import 'package:untitled05/core/layers/data/data-sources/movies/movies_remote_data_source.dart';
 import 'package:untitled05/core/layers/data/repos/movies/movies_repository.dart';
 import 'package:untitled05/core/layers/domain/entities/movie-model/movie.dart';
 import 'package:untitled05/core/layers/domain/usecases/movies_usecase.dart';
+import 'package:untitled05/core/layers/presentation/pages/movie-details-page/movie_details_page_view.dart';
 import 'package:untitled05/core/layers/presentation/pages/movies-page/movies_page_view.dart';
 
 class AppRouter{
@@ -17,19 +19,24 @@ class AppRouter{
   NavigatorObserver get navObserver => _navObserver;
 
   static Route? onGenerateRoute(RouteSettings routeSettings,){
+    if(routeSettings.name == Navigator.defaultRouteName) return null;
     switch (routeSettings.name){
-      // case AppRouteNames.phoneVerificationRoute:
-      // return _routeTo(() => const PhoneVerificationRoute(),);
+      case AppRouteNames.moviesRoute:
+      return _routeTo(() => const MoviesPageView(), routeSettings,);
+      case AppRouteNames.movieDetailsRoute:
+      return _routeTo(() => MovieDetailsPageView((routeSettings.arguments as int),), routeSettings,);
       default:
       return _routeTo(
-        () => const MoviesPageView(),
+        () => const Scaffold(body: SizedBox.expand(child: Center(child: Text("Unknown",),),),),
+        null,
       );
     }
   }
 
-  static Route? _routeTo(Widget Function() widgetFunction,){
+  static Route? _routeTo(Widget Function() widgetFunction, RouteSettings? settings,){
     return MaterialPageRoute(
       builder: (_,) => widgetFunction(),
+      settings: settings,
     );
   }
 }

@@ -20,7 +20,7 @@ mixin BaseViewModelHelper on BaseViewModel {
   }
 
   ///RUN MULTIPLE ASYNC METHODS
-  Future<T> runAsyncMethods<T>(Future<T> Function() futureFunction, {Object? busyObject,}) async {
+  Future<T> runBusyAsyncMethods<T>(Future<T> Function() futureFunction, {Object? busyObject,}) async {
     return await runBusyFuture(Future<T>(futureFunction,), busyObject: busyObject,);
   }
 

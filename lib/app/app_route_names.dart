@@ -1,3 +1,5 @@
 class AppRouteNames{
-  //static const phoneVerificationRoute = "phone-verification";
+  AppRouteNames._();
+  static const moviesRoute = "movies-page";
+  static const movieDetailsRoute = "movie-details-page";
 }

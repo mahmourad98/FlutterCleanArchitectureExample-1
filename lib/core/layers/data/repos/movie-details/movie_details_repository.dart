@@ -5,10 +5,10 @@ import 'package:untitled05/core/layers/data/data-sources/movie-details/movie_det
 import 'package:untitled05/core/layers/domain/contracts/movie_details_base_contract.dart';
 import 'package:untitled05/core/layers/domain/entities/movie-details-model/movie_details.dart';
 
-class MoviesRepository extends MovieDetailsBaseContract {
+class MovieDetailsRepository extends MovieDetailsBaseContract {
   final MovieDetailsBaseDataSource _movieDetailsBaseDataSource;
 
-  MoviesRepository(this._movieDetailsBaseDataSource,);
+  MovieDetailsRepository(this._movieDetailsBaseDataSource,);
 
   @override
   Future<Either<NetworkFailure, MovieDetails>> getMovieDetails({

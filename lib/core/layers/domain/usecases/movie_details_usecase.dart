@@ -10,7 +10,7 @@ class SingleMovieDetailsUsecase extends MovieDetailsBaseUsecase {
   SingleMovieDetailsUsecase(this._movieDetailsBaseContract,);
 
   @override
-  Future<Either<NetworkFailure, MovieDetails>> call({required int movieId,}) async {
+  Future<Either<NetworkFailure, MovieDetails>> call(int movieId,) async {
     return await _movieDetailsBaseContract.getMovieDetails(
       movieId: movieId, fromDto: (movieDetailsDto,) => MovieDetails.from(movieDetailsDto,),
     );

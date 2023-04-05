@@ -11,7 +11,7 @@ import 'package:untitled05/core/layers/data/data-models/movie-details/movie_deta
 import 'package:untitled05/core/layers/data/data-sources/movie-details/movie_details_base_data_source.dart';
 import 'package:untitled05/out-buildings/service_locator.dart';
 
-class MoviesRemoteDataSource extends MovieDetailsBaseDataSource with RemoteDataSourceHelper {
+class MovieDetailsRemoteDataSource extends MovieDetailsBaseDataSource with RemoteDataSourceHelper {
   final DioNetworkService _networkService = serviceLocator<DioNetworkService>();
 
   @override

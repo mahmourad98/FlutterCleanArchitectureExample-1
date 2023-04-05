@@ -35,5 +35,6 @@ abstract class CommonResponse implements Built<CommonResponse, CommonResponseBui
 }
 
 @SerializersFor([CommonResponse,])
+final Serializers _$serializers = (Serializers().toBuilder()..add(CommonResponse.serializer,)).build();
 final Serializers _serializers = (_$serializers.toBuilder()..addPlugin(StandardJsonPlugin(),)..add(JsonObjectSerializer(),)).build();
-Serializers _$serializers = (Serializers().toBuilder()..add(CommonResponse.serializer,)).build();
+

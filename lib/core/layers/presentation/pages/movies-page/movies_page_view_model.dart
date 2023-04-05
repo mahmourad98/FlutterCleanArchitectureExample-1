@@ -87,7 +87,7 @@ class MoviesPageViewModel extends BaseViewModel with BaseViewModelHelper{
          Future(() => _getNowPlayingMovie()),
          Future(() => _getTopRatedMovie()),
        ],
-      )
+      ),
     );
   }
 }

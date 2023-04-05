@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:stacked/stacked.dart';
+import 'package:untitled05/app/app_route_names.dart';
 import 'package:untitled05/app/app_router.dart';
 import 'package:untitled05/core/extras/helpers/base_view_model_helper.dart';
 import 'package:untitled05/core/extras/utils/app_keyboard_hider_utility.dart';
@@ -47,12 +48,15 @@ class AppEntryPoint extends HookWidget {
             childWidget = AppKeyboardHiderWrapper(childWidget,);
             return childWidget;
           },
+          navigatorKey: AppRouter.instance.navKey,
           navigatorObservers: [
             AppRouter.instance.navObserver,
             BotToastNavigatorObserver(),
           ],
+          initialRoute: AppRouteNames.moviesRoute,
+          onGenerateInitialRoutes: (_,) => [AppRouter.onGenerateRoute(RouteSettings(name: _,),)!,],
           onGenerateRoute: AppRouter.onGenerateRoute,
-          navigatorKey: AppRouter.instance.navKey,
+          onUnknownRoute: AppRouter.onGenerateRoute,
           debugShowCheckedModeBanner: false,
           useInheritedMediaQuery: true,
         ),

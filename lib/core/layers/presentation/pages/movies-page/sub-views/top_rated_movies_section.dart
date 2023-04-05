@@ -3,6 +3,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:stacked/stacked.dart';
+import 'package:untitled05/app/app_route_names.dart';
+import 'package:untitled05/app/app_router.dart';
 import 'package:untitled05/core/extras/constants/app_constants.dart';
 import 'package:untitled05/core/layers/presentation/pages/movies-page/movies_page_view_model.dart';
 
@@ -29,7 +31,7 @@ class TopRatedMoviesSection extends ViewModelWidget<MoviesPageViewModel> {
               padding: const EdgeInsets.only(right: 8.0,),
               child: InkWell(
                 onTap: () => {
-                  ///TODO : NAVIGATE TO  MOVIE DETAILS
+                  AppRouter.instance.navKey.currentState?.pushNamed(AppRouteNames.movieDetailsRoute, arguments:  movie.id,),
                 },
                 child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(8.0,),),
