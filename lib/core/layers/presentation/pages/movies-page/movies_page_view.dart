@@ -1,12 +1,5 @@
-import 'package:animate_do/animate_do.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:stacked/stacked.dart';
-import 'package:untitled05/app/app_router.dart';
-import 'package:untitled05/core/extras/constants/app_constants.dart';
-import 'package:untitled05/core/layers/domain/entities/movie-model/movie.dart';
 import 'package:untitled05/core/layers/presentation/pages/movies-page/movies_page_view_model.dart';
 import 'package:untitled05/core/layers/presentation/pages/movies-page/sub-views/most_popular_movies_section.dart';
 import 'package:untitled05/core/layers/presentation/pages/movies-page/sub-views/now_playing_movies_section.dart';

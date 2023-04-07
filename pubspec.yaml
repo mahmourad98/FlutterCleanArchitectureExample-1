@@ -53,6 +53,7 @@ dependencies:
   path_provider: any
   #Testing
   mockito: any
+  injectable: ^2.1.1
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +64,7 @@ dev_dependencies:
   built_value_generator: any
   json_serializable: any
   freezed: any
+  injectable_generator: any
 
 dependency_overrides:
   device_preview: 1.1.0
@@ -78,5 +80,5 @@ dependency_overrides:
 flutter:
   uses-material-design: true
 
-  assets:
-    - assets/
+  # assets:
+  #   - assets/

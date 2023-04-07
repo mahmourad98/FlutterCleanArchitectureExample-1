@@ -1,4 +1,3 @@
-import 'dart:developer' as dev;
 import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
@@ -20,8 +19,6 @@ class DioNetworkService {
   ///ignore: constant_identifier_names
   static const CLASS_NAME = "DioNetworkService";
 
-  static const _jsonDecoder = JsonDecoder();
-  static const _jsonEncoder = JsonEncoder();
 
   ///APP ENVIRONMENT
   AppEnvironment get _env => serviceLocator<AppEnvironment>();

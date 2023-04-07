@@ -6,8 +6,6 @@ part of 'common_response_model.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializers _$_serializers =
-    (new Serializers().toBuilder()..add(CommonResponse.serializer)).build();
 Serializer<CommonResponse> _$commonResponseSerializer =
     new _$CommonResponseSerializer();
 
