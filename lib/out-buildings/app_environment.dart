@@ -1,4 +1,3 @@
-import 'dart:developer' as dev;
 import 'package:flutter/foundation.dart';
 
 enum EnvironmentType {

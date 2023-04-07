@@ -1,7 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:untitled05/core/extras/services/dio-network-service/dio_network_service.dart';
 import 'package:untitled05/core/layers/data/data-sources/movie-details/movie_details_remote_data_source.dart';
-import 'package:untitled05/core/layers/data/data-sources/movies/movies_base_data_source.dart';
 import 'package:untitled05/core/layers/data/data-sources/movies/movies_remote_data_source.dart';
 import 'package:untitled05/core/layers/data/repos/movie-details/movie_details_repository.dart';
 import 'package:untitled05/core/layers/data/repos/movies/movies_repository.dart';

@@ -14,9 +14,9 @@ mixin BaseViewModelHelper on BaseViewModel {
       clickClose: true,
       align: Alignment.center,
     );
-    final T _response = await asyncFunction();
+    final T response = await asyncFunction();
     BotToast.closeAllLoading();
-    return _response;
+    return response;
   }
 
   ///RUN MULTIPLE ASYNC METHODS
