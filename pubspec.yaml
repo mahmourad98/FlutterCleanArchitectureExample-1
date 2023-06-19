@@ -83,4 +83,15 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/
+    - assets/images/bitmaps/
+    - assets/images/vectors/
+
+  fonts:
+    - family: Cairo
+      fonts:
+        - asset: assets/fonts/Cairo/Cairo-Regular.ttf
+        - asset: assets/fonts/Cairo/Cairo-Bold.ttf
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins/Poppins-Bold.ttf
