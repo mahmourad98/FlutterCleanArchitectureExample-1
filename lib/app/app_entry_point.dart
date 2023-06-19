@@ -43,7 +43,6 @@ class AppEntryPoint extends HookWidget {
         child: MaterialApp(
           builder: (buildContext, childWidget,) {
             childWidget = BotToastInit().call(buildContext, childWidget,);
-            childWidget = AppEntryPointEnvHelper(childWidget,).renderTreeHandler(environmentType, const [],);
             childWidget = AppLifeCycleWrapper(childWidget, const [],);
             childWidget = AppKeyboardHiderWrapper(childWidget,);
             return childWidget;
@@ -81,26 +80,5 @@ class _AppEntryPointViewModel extends ReactiveViewModel with BaseViewModelHelper
 
   @override
   List<ListenableServiceMixin> get listenableServices => const [];
-}
-
-extension AppEntryPointEnvHelper on Widget? {
-  ///Here all the test env wrapping widgets must be implemented !
-  Widget renderTreeHandler(EnvironmentType environmentType, List<Tuple3<AppLifecycleState, AppLifecycleState, Function>> appliedStateChangedProcedures,) {
-    final mainWidget = this ?? const SizedBox.expand();
-    switch (environmentType) {
-      ///Production Mode
-      case EnvironmentType.production:
-      return mainWidget;
-      ///Acceptance Mode
-      case EnvironmentType.acceptance:
-      return mainWidget;
-      ///Development Mode
-      case EnvironmentType.testing:
-      return mainWidget;
-      ///Development Mode
-      case EnvironmentType.development:
-      return mainWidget;
-    }
-  }
 }
 

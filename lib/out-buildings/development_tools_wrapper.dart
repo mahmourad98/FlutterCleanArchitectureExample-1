@@ -10,19 +10,14 @@ class DevToolsWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context,) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Phoenix(
-        child: RequestsInspector(
-          enabled: true,
-          hideInspectorBanner: true,
-          showInspectorOn: ShowInspectorOn.LongPress,
-          child: DevicePreview(
-            enabled: true,
-            isToolbarVisible: true,
-            builder: (BuildContext context,) => DevicePreview.appBuilder(context, appEntryPoint,),
-          ),
-        ),
+    return RequestsInspector(
+      enabled: true,
+      hideInspectorBanner: true,
+      showInspectorOn: ShowInspectorOn.LongPress,
+      child: DevicePreview(
+        enabled: true,
+        isToolbarVisible: true,
+        builder: (BuildContext context,) => DevicePreview.appBuilder(context, appEntryPoint,),
       ),
     );
   }

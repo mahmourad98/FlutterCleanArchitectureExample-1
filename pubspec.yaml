@@ -74,6 +74,8 @@ dependency_overrides:
   open_file: 3.2.1
   built_value: 8.4.4
   built_value_generator: 8.4.4
+  flutter_phoenix:
+    git: https://github.com/mahmourad98/flutter_phoenix_plus.git
 
 flutter:
   uses-material-design: true

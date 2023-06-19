@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:untitled05/app/app_entry_point.dart';
 import 'package:untitled05/out-buildings/app_environment.dart';
 import 'package:untitled05/out-buildings/app_logger.dart';
@@ -24,10 +25,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
   await _appEntryMethod(_envType,);
-  Widget appEntryPoint = AppEntryPoint(_envType,);
+  final Widget appEntryPoint = Phoenix(child: AppEntryPoint(_envType,),);
   if(_envType.isDebugMode()) {
     runApp(DevToolsWrapper(appEntryPoint,),);
-  } else {
+  }
+  else {
     runApp(appEntryPoint,);
   }
 }
