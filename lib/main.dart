@@ -25,7 +25,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
   await _appEntryMethod(_envType,);
-  final Widget appEntryPoint = Phoenix(child: AppEntryPoint(_envType,),);
+  final appEntryPoint = Phoenix(child: AppEntryPoint(_envType,),);
   if(_envType.isDebugMode()) {
     runApp(DevToolsWrapper(appEntryPoint,),);
   }

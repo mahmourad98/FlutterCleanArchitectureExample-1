@@ -36,22 +36,25 @@ class AppEntryPoint extends HookWidget {
       createNewViewModelOnInsert: false,
       disposeViewModel: false,
       viewModelBuilder: () => _AppEntryPointViewModel(),
-      onViewModelReady: (viewModel,) => viewModel.onModelReady(),
-      onDispose: (viewModel,) => viewModel.onDispose(),
-      builder: (_, viewModel, __,) => WillPopScope(
-        onWillPop: () async {
-          viewModel.onClose();
-          return true;
-        },
+      onViewModelReady: (_AppEntryPointViewModel viewModel,) => viewModel.onModelReady(),
+      onDispose: (_AppEntryPointViewModel viewModel,) => viewModel.onDispose(),
+      builder: (_, _AppEntryPointViewModel viewModel, __,) => WillPopScope(
+        onWillPop: () async { viewModel.onClose(); return true; },
         child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          useInheritedMediaQuery: true,
           title: AppConfig.appName,
           theme: AppTheme.isDarkTheme ? AppTheme.appThemeDark : AppTheme.appThemeLight,
           themeMode: AppTheme.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
-          builder: (buildContext, childWidget,) {
+          builder: (BuildContext buildContext, Widget? childWidget,) {
+            final isRtl = Directionality.of(context,) == TextDirection.rtl;
             childWidget = BotToastInit().call(buildContext, childWidget,);
             childWidget = AppLifeCycleWrapper(childWidget, const [],);
             childWidget = AppKeyboardHiderWrapper(childWidget,);
-            return childWidget;
+            return Theme(
+              data: ThemeData(fontFamily: (isRtl ? "Cairo" : "Poppins"),),
+              child: childWidget,
+            );
           },
           navigatorKey: AppRouter.instance.navKey,
           navigatorObservers: [
@@ -59,11 +62,10 @@ class AppEntryPoint extends HookWidget {
             BotToastNavigatorObserver(),
           ],
           initialRoute: AppRouteNames.moviesRoute,
-          onGenerateInitialRoutes: (_,) => [AppRouter.onGenerateRoute(RouteSettings(name: _,),)!,],
+          onGenerateInitialRoutes: (String _,) => [AppRouter.onGenerateRoute(RouteSettings(name: _,),)!,],
+          routes: const <String, WidgetBuilder>{},
           onGenerateRoute: AppRouter.onGenerateRoute,
           onUnknownRoute: AppRouter.onGenerateRoute,
-          debugShowCheckedModeBanner: false,
-          useInheritedMediaQuery: true,
           locale: Locale(SupportedLanguage.languageCodes.first, SupportedLanguage.countryCodes.first,),
           supportedLocales: List<Locale>.generate(
             SupportedLanguage.languageNames.length,

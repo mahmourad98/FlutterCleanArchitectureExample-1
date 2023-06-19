@@ -10,14 +10,17 @@ class DevToolsWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context,) {
-    return RequestsInspector(
-      enabled: true,
-      hideInspectorBanner: true,
-      showInspectorOn: ShowInspectorOn.LongPress,
-      child: DevicePreview(
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: RequestsInspector(
         enabled: true,
-        isToolbarVisible: true,
-        builder: (BuildContext context,) => DevicePreview.appBuilder(context, appEntryPoint,),
+        hideInspectorBanner: true,
+        showInspectorOn: ShowInspectorOn.LongPress,
+        child: DevicePreview(
+          enabled: true,
+          isToolbarVisible: true,
+          builder: (BuildContext context,) => DevicePreview.appBuilder(context, appEntryPoint,),
+        ),
       ),
     );
   }
