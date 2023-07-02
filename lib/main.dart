@@ -40,5 +40,6 @@ Future _appEntryMethod(EnvironmentType environmentType,) async {
     await setupServiceLocator(environmentType,);
   } on Exception catch (e) {
     log(e.toString(), name: _envType.name,);
+    exit(1,);
   }
 }
