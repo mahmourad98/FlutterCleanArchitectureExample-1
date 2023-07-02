@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:untitled05/app/app_entry_point.dart';
@@ -27,7 +28,7 @@ void main() async {
   HttpOverrides.global = MyHttpOverrides();
   await _appEntryMethod(_envType,);
   final appEntryPoint = Phoenix(child: AppEntryPoint(_envType,),);
-  if(_envType.isDebugMode()) {
+  if(kDebugMode) {
     runApp(DevToolsWrapper(appEntryPoint,),);
   }
   else {
