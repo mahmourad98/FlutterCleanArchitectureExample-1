@@ -33,9 +33,6 @@ extension EnvTypeInfo on EnvironmentType {
       return "";
     }
   }
-
-  bool isDebugMode() => (this == EnvironmentType.development);
-  bool isReleaseMode() => (this == EnvironmentType.testing) || (this == EnvironmentType.acceptance) ||(this == EnvironmentType.production);
 }
 
 extension EnvTypeFromString on String {

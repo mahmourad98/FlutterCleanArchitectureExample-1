@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
+import 'package:flutter/foundation.dart';
 import 'package:open_file/open_file.dart' as open_file;
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as path_provider;
@@ -63,7 +64,7 @@ class DioNetworkService {
   DioNetworkService() {
     _dio = Dio();
     _baseOptions.baseUrl = _env.environmentType.apiUrl;
-    if (_env.environmentType.isDebugMode()) {
+    if (kDebugMode) {
       _dio.interceptors.addAll(
         [..._interceptors, _interceptorWrapper, DioCacheInterceptor(options: firstCacheOptions,), secondCacheOptions.interceptor,],
       );

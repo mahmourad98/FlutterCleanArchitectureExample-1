@@ -13,7 +13,7 @@ class DevToolsWrapper extends StatelessWidget {
       textDirection: TextDirection.ltr,
       child: RequestsInspector(
         enabled: true,
-        hideInspectorBanner: true,
+        hideInspectorBanner: false,
         showInspectorOn: ShowInspectorOn.LongPress,
         child: DevicePreview(
           enabled: true,
