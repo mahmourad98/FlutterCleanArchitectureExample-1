@@ -1,9 +1,9 @@
+import 'package:stacked/stacked.dart';
 import 'package:untitled05/app/app_router.dart';
 import 'package:untitled05/core/extras/helpers/base_view_model_helper.dart';
-import 'package:stacked/stacked.dart';
 import 'package:untitled05/core/layers/domain/entities/movie-details-model/movie_details.dart';
 import 'package:untitled05/core/layers/domain/usecases/movie_details_usecase.dart';
-import 'package:untitled05/out-buildings/service_locator.dart';
+import 'package:untitled05/out-buildings/dependency_injector.dart';
 
 class MovieDetailsPageViewModel extends BaseViewModel with BaseViewModelHelper {
   final int _movieId;

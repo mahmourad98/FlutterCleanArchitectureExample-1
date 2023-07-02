@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:ui';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:untitled05/core/extras/constants/app_constants.dart';
@@ -9,7 +10,7 @@ import 'package:untitled05/core/extras/services/dio-network-service/dio_network_
 import 'package:untitled05/core/extras/services/dio-network-service/dio_network_service.dart';
 import 'package:untitled05/core/layers/data/data-models/movies/movies_dto.dart';
 import 'package:untitled05/core/layers/data/data-sources/movies/movies_base_data_source.dart';
-import 'package:untitled05/out-buildings/service_locator.dart';
+import 'package:untitled05/out-buildings/dependency_injector.dart';
 
 class MoviesRemoteDataSource extends MoviesBaseDataSource with RemoteDataSourceHelper {
   final DioNetworkService _networkService = serviceLocator<DioNetworkService>();

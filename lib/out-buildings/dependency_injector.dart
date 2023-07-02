@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
+import 'package:untitled05/core/extras/services/app-localization-service/app_localization_service.dart';
 import 'package:untitled05/core/extras/services/dio-network-service/dio_network_service.dart';
 import 'package:untitled05/core/layers/data/data-sources/movie-details/movie_details_remote_data_source.dart';
-import 'package:untitled05/core/layers/data/data-sources/movies/movies_base_data_source.dart';
 import 'package:untitled05/core/layers/data/data-sources/movies/movies_remote_data_source.dart';
 import 'package:untitled05/core/layers/data/repos/movie-details/movie_details_repository.dart';
 import 'package:untitled05/core/layers/data/repos/movies/movies_repository.dart';
@@ -20,6 +20,8 @@ Future setupServiceLocator(EnvironmentType envIfoMode,) async {
   {
     //1-EnvSolution
     serviceLocator.registerSingleton<AppEnvironment>(AppEnvironment(envIfoMode,),);
+    serviceLocator.registerSingleton<AppLocalizationService>(AppLocalizationService(),);
+    await serviceLocator<AppLocalizationService>().initAppLocaleFromDB();
     serviceLocator.registerLazySingleton<DioNetworkService>(() => DioNetworkService(),);
     serviceLocator.registerLazySingleton<MoviesRemoteDataSource>(() => MoviesRemoteDataSource(),);
     serviceLocator.registerLazySingleton<MoviesRepository>(() => MoviesRepository(serviceLocator<MoviesRemoteDataSource>(),),);

@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'dart:developer' as dev;
+
 import 'package:logger/logger.dart';
 
 const bool _isReleaseMode = bool.fromEnvironment("dart.vm.product");

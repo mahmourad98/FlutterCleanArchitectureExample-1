@@ -17,6 +17,7 @@ dependencies:
   sizer: any
   auto_size_text: any
   bot_toast: any
+  fluttertoast: any
   flutter_spinkit: any
   shimmer: any
   google_fonts: any
@@ -53,6 +54,7 @@ dependencies:
   open_file: any
   path: any
   path_provider: any
+  shared_preferences: any
   #Testing
   mockito: any
 
@@ -78,6 +80,8 @@ dependency_overrides:
   built_value_generator: 8.4.4
   flutter_phoenix:
     git: https://github.com/mahmourad98/flutter_phoenix_plus.git
+  fluttertoast:
+    git: https://github.com/mahmourad98/FlutterToast-Android-S-VersionFix.git
 
 flutter:
   uses-material-design: true
@@ -85,6 +89,8 @@ flutter:
   assets:
     - assets/images/bitmaps/
     - assets/images/vectors/
+    - assets/lang/
+    - assets/fonts/
 
   fonts:
     - family: Cairo

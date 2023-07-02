@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:untitled05/core/extras/services/dio-network-service/dio_network_errors.dart';
-import 'package:untitled05/core/layers/domain/entities/movie-model/movie.dart';
 import 'package:untitled05/core/layers/data/data-models/movies/movies_dto.dart' as movies_dto;
+import 'package:untitled05/core/layers/domain/entities/movie-model/movie.dart';
 
 abstract class MoviesBaseUsecase {
   List<Movie> moviesListFromDto(movies_dto.MoviesDto dto,) {

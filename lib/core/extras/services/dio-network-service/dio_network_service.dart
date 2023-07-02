@@ -1,6 +1,6 @@
-import 'dart:developer' as dev;
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
@@ -14,7 +14,7 @@ import 'package:untitled05/core/extras/services/dio-network-service/common-respo
 import 'package:untitled05/core/extras/services/dio-network-service/dio_network_errors.dart';
 import 'package:untitled05/out-buildings/app_environment.dart';
 import 'package:untitled05/out-buildings/app_logger.dart';
-import 'package:untitled05/out-buildings/service_locator.dart';
+import 'package:untitled05/out-buildings/dependency_injector.dart';
 
 class DioNetworkService {
   ///ignore: constant_identifier_names

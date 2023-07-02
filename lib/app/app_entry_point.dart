@@ -1,6 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:stacked/stacked.dart';
@@ -10,9 +10,12 @@ import 'package:untitled05/core/extras/config/app_config.dart';
 import 'package:untitled05/core/extras/config/app_theme.dart';
 import 'package:untitled05/core/extras/config/supported_languages.dart';
 import 'package:untitled05/core/extras/helpers/base_view_model_helper.dart';
+import 'package:untitled05/core/extras/services/app-localization-service/app_localization_delegate.dart';
+import 'package:untitled05/core/extras/services/app-localization-service/app_localization_service.dart';
 import 'package:untitled05/core/extras/utils/app_keyboard_hider_utility.dart';
 import 'package:untitled05/core/extras/utils/app_life_cycle_wrapper_utility.dart';
 import 'package:untitled05/out-buildings/app_environment.dart';
+import 'package:untitled05/out-buildings/dependency_injector.dart';
 
 class AppEntryPoint extends HookWidget {
   final EnvironmentType environmentType;
@@ -47,12 +50,13 @@ class AppEntryPoint extends HookWidget {
           theme: AppTheme.isDarkTheme ? AppTheme.appThemeDark : AppTheme.appThemeLight,
           themeMode: AppTheme.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
           builder: (BuildContext buildContext, Widget? childWidget,) {
-            final isRtl = Directionality.of(context,) == TextDirection.rtl;
             childWidget = BotToastInit().call(buildContext, childWidget,);
             childWidget = AppLifeCycleWrapper(childWidget, const [],);
             childWidget = AppKeyboardHiderWrapper(childWidget,);
             return Theme(
-              data: ThemeData(fontFamily: (isRtl ? "Cairo" : "Poppins"),),
+              data: ThemeData(
+                fontFamily: isRTL() ? "Cairo" : "Poppins",
+              ),
               child: childWidget,
             );
           },
@@ -66,12 +70,13 @@ class AppEntryPoint extends HookWidget {
           routes: const <String, WidgetBuilder>{},
           onGenerateRoute: AppRouter.onGenerateRoute,
           onUnknownRoute: AppRouter.onGenerateRoute,
-          locale: Locale(SupportedLanguage.languageCodes.first, SupportedLanguage.countryCodes.first,),
+          locale: serviceLocator<AppLocalizationService>().currentLocale,
           supportedLocales: List<Locale>.generate(
             SupportedLanguage.languageNames.length,
             (int index,) => Locale(SupportedLanguage.languageCodes[index], SupportedLanguage.countryCodes[index],),
           ),
           localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+            AppLocalizationDelegate.instance,
             GlobalWidgetsLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,

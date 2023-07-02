@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:untitled05/app/app_router.dart';
 import 'package:untitled05/core/extras/helpers/base_view_model_helper.dart';
 import 'package:untitled05/core/layers/domain/entities/movie-model/movie.dart';
 import 'package:untitled05/core/layers/domain/usecases/movies_usecase.dart';
-import 'package:untitled05/out-buildings/service_locator.dart';
+import 'package:untitled05/out-buildings/dependency_injector.dart';
 
 class MoviesPageViewModel extends BaseViewModel with BaseViewModelHelper{
   NowPlayingMoviesUsecase get _nowPlayingMoviesUsecase => serviceLocator<NowPlayingMoviesUsecase>();

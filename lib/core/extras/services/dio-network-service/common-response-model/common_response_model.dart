@@ -1,12 +1,10 @@
-import 'dart:convert';
-
 import 'package:built_value/built_value.dart';
 import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
-// ignore: depend_on_referenced_packages
-import 'package:built_value/standard_json_plugin.dart';
 // ignore: implementation_imports
 import 'package:built_value/src/json_object_serializer.dart';
+// ignore: depend_on_referenced_packages
+import 'package:built_value/standard_json_plugin.dart';
 
 part 'common_response_model.g.dart';
 

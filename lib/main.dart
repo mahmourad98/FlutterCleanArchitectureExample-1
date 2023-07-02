@@ -1,12 +1,13 @@
 import 'dart:developer';
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:untitled05/app/app_entry_point.dart';
 import 'package:untitled05/out-buildings/app_environment.dart';
 import 'package:untitled05/out-buildings/app_logger.dart';
+import 'package:untitled05/out-buildings/dependency_injector.dart';
 import 'package:untitled05/out-buildings/development_tools_wrapper.dart';
-import 'package:untitled05/out-buildings/service_locator.dart';
 
 ///SETTING UP THE ENVIRONMENT TYPE
 const _environment = String.fromEnvironment("ENV", defaultValue: "PRODUCTION",);
