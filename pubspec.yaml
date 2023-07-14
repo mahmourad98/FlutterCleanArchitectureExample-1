@@ -61,7 +61,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   flutter_lints: any
   build_runner: any
   built_value_generator: any

@@ -18,6 +18,7 @@ class DevToolsWrapper extends StatelessWidget {
         child: DevicePreview(
           enabled: true,
           isToolbarVisible: true,
+          backgroundColor: Colors.white,
           builder: (BuildContext context,) => DevicePreview.appBuilder(context, appEntryPoint,),
         ),
       ),
