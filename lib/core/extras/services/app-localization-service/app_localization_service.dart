@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:untitled05/core/extras/config/shared_prefs_keys.dart';
-import 'package:untitled05/core/extras/config/supported_languages.dart';
+import 'package:untitled05/config/shared_prefs_keys.dart';
+import 'package:untitled05/config/supported_languages.dart';
 import 'package:untitled05/out-buildings/dependency_injector.dart';
 
 class AppLocalizationService extends ChangeNotifier{

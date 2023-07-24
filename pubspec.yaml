@@ -55,6 +55,7 @@ dependencies:
   path: any
   path_provider: any
   shared_preferences: any
+  location: any
   #Testing
   mockito: any
 

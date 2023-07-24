@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:untitled05/core/extras/config/supported_languages.dart';
+import 'package:untitled05/config/supported_languages.dart';
 import 'package:untitled05/core/extras/services/app-localization-service/app_localization_service.dart';
 import 'package:untitled05/out-buildings/dependency_injector.dart';
 

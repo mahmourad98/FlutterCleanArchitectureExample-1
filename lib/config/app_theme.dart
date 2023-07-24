@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:untitled05/core/extras/config/app_colors.dart';
+import 'package:untitled05/config/app_colors.dart';
 
 class AppTheme {
   static const bool isDarkTheme = false;
