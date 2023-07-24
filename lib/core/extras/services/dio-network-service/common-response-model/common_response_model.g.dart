@@ -30,6 +30,13 @@ class _$CommonResponseSerializer
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
+    value = object.message;
+    if (value != null) {
+      result
+        ..add('message')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.data;
     if (value != null) {
       result
@@ -63,6 +70,10 @@ class _$CommonResponseSerializer
           result.status = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
+        case 'message':
+          result.message = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
         case 'data':
           result.data = serializers.deserialize(value,
               specifiedType: const FullType(JsonObject)) as JsonObject?;
@@ -82,6 +93,8 @@ class _$CommonResponse extends CommonResponse {
   @override
   final bool? status;
   @override
+  final String? message;
+  @override
   final JsonObject? data;
   @override
   final JsonObject? errors;
@@ -89,7 +102,8 @@ class _$CommonResponse extends CommonResponse {
   factory _$CommonResponse([void Function(CommonResponseBuilder)? updates]) =>
       (new CommonResponseBuilder()..update(updates))._build();
 
-  _$CommonResponse._({this.status, this.data, this.errors}) : super._();
+  _$CommonResponse._({this.status, this.message, this.data, this.errors})
+      : super._();
 
   @override
   CommonResponse rebuild(void Function(CommonResponseBuilder) updates) =>
@@ -104,6 +118,7 @@ class _$CommonResponse extends CommonResponse {
     if (identical(other, this)) return true;
     return other is CommonResponse &&
         status == other.status &&
+        message == other.message &&
         data == other.data &&
         errors == other.errors;
   }
@@ -112,6 +127,7 @@ class _$CommonResponse extends CommonResponse {
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, status.hashCode);
+    _$hash = $jc(_$hash, message.hashCode);
     _$hash = $jc(_$hash, data.hashCode);
     _$hash = $jc(_$hash, errors.hashCode);
     _$hash = $jf(_$hash);
@@ -122,6 +138,7 @@ class _$CommonResponse extends CommonResponse {
   String toString() {
     return (newBuiltValueToStringHelper(r'CommonResponse')
           ..add('status', status)
+          ..add('message', message)
           ..add('data', data)
           ..add('errors', errors))
         .toString();
@@ -135,6 +152,10 @@ class CommonResponseBuilder
   bool? _status;
   bool? get status => _$this._status;
   set status(bool? status) => _$this._status = status;
+
+  String? _message;
+  String? get message => _$this._message;
+  set message(String? message) => _$this._message = message;
 
   JsonObject? _data;
   JsonObject? get data => _$this._data;
@@ -150,6 +171,7 @@ class CommonResponseBuilder
     final $v = _$v;
     if ($v != null) {
       _status = $v.status;
+      _message = $v.message;
       _data = $v.data;
       _errors = $v.errors;
       _$v = null;
@@ -173,7 +195,8 @@ class CommonResponseBuilder
 
   _$CommonResponse _build() {
     final _$result = _$v ??
-        new _$CommonResponse._(status: status, data: data, errors: errors);
+        new _$CommonResponse._(
+            status: status, message: message, data: data, errors: errors);
     replace(_$result);
     return _$result;
   }

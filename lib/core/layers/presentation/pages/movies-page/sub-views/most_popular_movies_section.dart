@@ -3,10 +3,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:stacked/stacked.dart';
-import 'package:untitled05/app/app_route_names.dart';
-import 'package:untitled05/app/app_router.dart';
 import 'package:untitled05/core/extras/constants/app_constants.dart';
+import 'package:untitled05/core/extras/services/app-navigation-service/app_navigation_service.dart';
+import 'package:untitled05/core/extras/services/app-navigation-service/app_route_names.dart';
 import 'package:untitled05/core/layers/presentation/pages/movies-page/movies_page_view_model.dart';
+import 'package:untitled05/out-buildings/dependency_injector.dart';
 
 class MostPopularMoviesWidget extends ViewModelWidget<MoviesPageViewModel> {
   @override
@@ -31,8 +32,10 @@ class MostPopularMoviesWidget extends ViewModelWidget<MoviesPageViewModel> {
               padding: const EdgeInsets.only(right: 8.0,),
               child: InkWell(
                 onTap: () => {
-                AppRouter.instance.navKey.currentState?.pushNamed(AppRouteNames.movieDetailsRoute, arguments:  movie.id,),
-              },
+                  serviceLocator<AppNavigationService>().navigateTo<dynamic, int>(
+                    routeName: AppRouteNames.movieDetailsRoute, arguments: movie.id,
+                  ),
+                },
                 child: ClipRRect(
                   borderRadius:
                   const BorderRadius.all(Radius.circular(8.0,),),

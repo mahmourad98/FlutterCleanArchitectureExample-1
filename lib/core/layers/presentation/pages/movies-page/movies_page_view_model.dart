@@ -1,6 +1,6 @@
 import 'package:stacked/stacked.dart';
-import 'package:untitled05/app/app_router.dart';
 import 'package:untitled05/core/extras/helpers/base_view_model_helper.dart';
+import 'package:untitled05/core/extras/services/app-navigation-service/app_navigation_service.dart';
 import 'package:untitled05/core/layers/domain/entities/movie-model/movie.dart';
 import 'package:untitled05/core/layers/domain/usecases/movies_usecase.dart';
 import 'package:untitled05/out-buildings/dependency_injector.dart';
@@ -65,10 +65,7 @@ class MoviesPageViewModel extends BaseViewModel with BaseViewModelHelper{
 
   @override
   void onClose() {
-    if(AppRouter.instance.navKey.currentState != null) {
-      AppRouter.instance.navKey.currentState!.pop();
-      /*Navigator.of(AppRouter.instance.navKey.currentContext!,).pop();*/
-    }
+    serviceLocator<AppNavigationService>().goBack();
   }
 
   @override

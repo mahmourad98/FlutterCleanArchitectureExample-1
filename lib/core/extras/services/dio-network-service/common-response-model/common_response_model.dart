@@ -15,6 +15,9 @@ abstract class CommonResponse implements Built<CommonResponse, CommonResponseBui
   @BuiltValueField(wireName: 'status',)
   bool? get status;
 
+  @BuiltValueField(wireName: 'message',)
+  String? get message;
+
   @BuiltValueField(wireName: 'data',)
   JsonObject? get data;
 
@@ -33,6 +36,5 @@ abstract class CommonResponse implements Built<CommonResponse, CommonResponseBui
 }
 
 @SerializersFor([CommonResponse,])
-final Serializers _$serializers = (Serializers().toBuilder()..add(CommonResponse.serializer,)).build();
-final Serializers _serializers = (_$serializers.toBuilder()..addPlugin(StandardJsonPlugin(),)..add(JsonObjectSerializer(),)).build();
+final Serializers _serializers = (_$_serializers.toBuilder()..addPlugin(StandardJsonPlugin(),)..add(JsonObjectSerializer(),)).build();
 

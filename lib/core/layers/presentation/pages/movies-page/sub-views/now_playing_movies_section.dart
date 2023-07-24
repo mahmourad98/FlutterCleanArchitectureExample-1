@@ -3,10 +3,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:untitled05/app/app_route_names.dart';
-import 'package:untitled05/app/app_router.dart';
 import 'package:untitled05/core/extras/constants/app_constants.dart';
+import 'package:untitled05/core/extras/services/app-navigation-service/app_navigation_service.dart';
+import 'package:untitled05/core/extras/services/app-navigation-service/app_route_names.dart';
 import 'package:untitled05/core/layers/presentation/pages/movies-page/movies_page_view_model.dart';
+import 'package:untitled05/out-buildings/dependency_injector.dart';
 
 class NowPlayingMoviesSection extends ViewModelWidget<MoviesPageViewModel> {
   @override
@@ -28,7 +29,9 @@ class NowPlayingMoviesSection extends ViewModelWidget<MoviesPageViewModel> {
           (item) => GestureDetector(
             key: const Key('open-movie-minimal-detail',),
             onTap: () {
-              AppRouter.instance.navKey.currentState?.pushNamed(AppRouteNames.movieDetailsRoute, arguments:  item.id,);
+              serviceLocator<AppNavigationService>().navigateTo<dynamic, int>(
+                routeName: AppRouteNames.movieDetailsRoute, arguments: item.id,
+              );
             },
             child: Stack(
               children: [

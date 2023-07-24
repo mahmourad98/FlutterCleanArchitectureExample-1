@@ -78,7 +78,9 @@ dependency_overrides:
   built_value: 8.4.4
   built_value_generator: 8.4.4
   flutter_phoenix:
-    git: https://github.com/mahmourad98/flutter_phoenix_plus.git
+    git:
+      url: https://github.com/mahmourad98/flutter_phoenix_plus.git
+      ref: 9f91fd7
   fluttertoast:
     git: https://github.com/mahmourad98/FlutterToast-Android-S-VersionFix.git
 

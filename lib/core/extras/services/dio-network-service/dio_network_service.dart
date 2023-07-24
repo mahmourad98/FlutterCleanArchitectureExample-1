@@ -11,6 +11,7 @@ import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:requests_inspector/requests_inspector.dart';
 import 'package:untitled05/core/extras/helpers/common_response_model_helper.dart';
+import 'package:untitled05/core/extras/helpers/general_usage_helper.dart';
 import 'package:untitled05/core/extras/services/dio-network-service/common-response-model/common_response_model.dart';
 import 'package:untitled05/core/extras/services/dio-network-service/dio_network_errors.dart';
 import 'package:untitled05/out-buildings/app_environment.dart';
@@ -86,11 +87,13 @@ class DioNetworkService {
         data: jsonEncode(body,),
         options: options,
       );
+      final failureType = response.statusCode.responseType;
       final CommonResponse commonResponse = CommonResponse.fromJson(responseConverter(response.statusCode, response.data,),);
-      if (commonResponse.status ?? false) {
+      if(failureType.isNotNull) {
+        return throw NetworkFailure<dynamic>(failureType!, commonResponse.errors,);
+      }
+      else {
         return (commonResponse.data?.value ?? {}) as T;
-      } else {
-        return throw NetworkFailure<dynamic>(NetworkFailureType.serverError, commonResponse.errors,);
       }
     } catch (e) {
       e.exceptionErrorLog(CLASS_NAME,);
@@ -121,11 +124,13 @@ class DioNetworkService {
         options: options,
         onSendProgress: onSendProgress,
       );
+      final failureType = response.statusCode.responseType;
       final CommonResponse commonResponse = CommonResponse.fromJson(responseConverter(response.statusCode, response.data,),);
-      if (commonResponse.status ?? false) {
+      if(failureType.isNotNull) {
+        return throw NetworkFailure<dynamic>(failureType!, commonResponse.errors,);
+      }
+      else {
         return (commonResponse.data?.value ?? {}) as T;
-      } else {
-        return throw NetworkFailure<dynamic>(NetworkFailureType.serverError, commonResponse.errors,);
       }
     } catch (e) {
       e.exceptionErrorLog(CLASS_NAME,);
@@ -155,11 +160,13 @@ class DioNetworkService {
         url,
         options: options,
       );
+      final failureType = response.statusCode.responseType;
       final CommonResponse commonResponse = CommonResponse.fromJson(responseConverter(response.statusCode, response.data,),);
-      if (commonResponse.status ?? false) {
+      if(failureType.isNotNull) {
+        return throw NetworkFailure<dynamic>(failureType!, commonResponse.errors,);
+      }
+      else {
         return (commonResponse.data?.value ?? {}) as T;
-      } else {
-        return throw NetworkFailure<dynamic>(NetworkFailureType.serverError, commonResponse.errors,);
       }
     } catch (e) {
       e.exceptionErrorLog(CLASS_NAME,);
