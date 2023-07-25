@@ -3,7 +3,7 @@ import 'package:untitled05/core/layers/data/data-models/movies/movies_dto.dart' 
 
 part 'movie.freezed.dart';
 
-@freezed
+@Freezed(copyWith: true, equal: true, toStringOverride: true,)
 class Movie with _$Movie {
   const factory Movie({
     required int id,

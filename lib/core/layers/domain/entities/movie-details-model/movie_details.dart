@@ -3,7 +3,7 @@ import 'package:untitled05/core/layers/data/data-models/movie-details/movie_deta
 
 part 'movie_details.freezed.dart';
 
-@freezed
+@Freezed(copyWith: true, equal: true, toStringOverride: true,)
 class MovieDetails with _$MovieDetails {
   const factory MovieDetails({
     required int id,
@@ -28,7 +28,7 @@ class MovieDetails with _$MovieDetails {
   );
 }
 
-@freezed
+@Freezed(copyWith: true, equal: true, toStringOverride: true,)
 class Genres with _$Genres {
   const factory Genres({
     required int id,
