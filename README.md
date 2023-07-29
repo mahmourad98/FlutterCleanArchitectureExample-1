@@ -1,6 +1,8 @@
 # Flutter Clean Architecture Example
 Course: https://www.udemy.com/course/flutter-clean-architecture-2022-flutter-3-in-arabic/
-
+Course: https://www.udemy.com/course/clean-architecture-in-flutter-arabic/
+Course: https://www.udemy.com/course/deep-dive-into-clean-architecture-in-flutter-2022arabic/
+Course: https://www.udemy.com/course/flutter-advanced-clean-architecture-with-mvvm-arabic/
 A new Flutter project.
 
 ## Getting Started
