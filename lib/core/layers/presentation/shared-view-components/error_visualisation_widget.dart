@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class GeneralErrorVisualisation extends StatelessWidget {
   final String message;
-  const GeneralErrorVisualisation({required this.message, Key? key,}) : super(key: key,);
-
+  /////////////////////////
+  const GeneralErrorVisualisation({required this.message,}) : super(key: null,);
+  /////////////////////////
   @override
   Widget build(BuildContext context,) {
     return Center(
@@ -14,7 +15,7 @@ class GeneralErrorVisualisation extends StatelessWidget {
           children: [
             Icon(
               Icons.signal_cellular_connected_no_internet_0_bar_outlined,
-              size: 135,
+              size: 136.0,
               color: Colors.grey.withAlpha(100,),
             ),
             Container(
@@ -22,7 +23,7 @@ class GeneralErrorVisualisation extends StatelessWidget {
               child: Text(
                 "$message Tap for retry",
                 style: const TextStyle(
-                  fontSize: 12,
+                  fontSize: 12.0,
                   fontWeight: FontWeight.w700,
                 ),
                 textAlign: TextAlign.center,

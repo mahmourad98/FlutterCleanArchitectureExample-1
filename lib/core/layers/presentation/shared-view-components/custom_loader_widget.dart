@@ -6,8 +6,9 @@ enum CustomLoaderTypes{shimmer, ring, ripple,}
 
 class CustomLoader extends StatelessWidget {
   final CustomLoaderTypes customLoaderTypes;
-  const CustomLoader({required this.customLoaderTypes, Key? key,}) : super(key: key,);
-
+  /////////////////////////
+  const CustomLoader({this.customLoaderTypes = CustomLoaderTypes.ring,}) : super(key: null,);
+  /////////////////////////
   @override
   Widget build(BuildContext context,) {
     return Container(
@@ -25,7 +26,7 @@ class CustomLoader extends StatelessWidget {
       ),
     );
   }
-
+  /////////////////////////
   Widget _getLoader(CustomLoaderTypes customLoaderTypes,) {
     switch (customLoaderTypes){
       case CustomLoaderTypes.shimmer:
@@ -40,9 +41,9 @@ class CustomLoader extends StatelessWidget {
 
 class RingLoaderWidget extends StatelessWidget {
   final Color? loaderColor;
-
+  /////////////////////////
   const RingLoaderWidget({Key? key, this.loaderColor,}) : super(key: key,);
-
+  /////////////////////////
   @override
   Widget build(BuildContext context,) {
     return Container(
@@ -59,9 +60,9 @@ class RingLoaderWidget extends StatelessWidget {
 
 class RippleLoaderWidget extends StatelessWidget {
   final Color? loaderColor;
-
+  /////////////////////////
   const RippleLoaderWidget({Key? key, this.loaderColor,}) : super(key: key,);
-
+  /////////////////////////
   @override
   Widget build(BuildContext context,) {
     return Container(
@@ -74,10 +75,10 @@ class RippleLoaderWidget extends StatelessWidget {
 }
 
 class ShimmerLoaderWidget extends StatelessWidget {
-  const ShimmerLoaderWidget({Key? key}) : super(key: key);
-
+  const ShimmerLoaderWidget() : super(key: null,);
+  /////////////////////////
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,) {
     return Shimmer.fromColors(
       baseColor: Colors.grey[300]!,
       highlightColor: Colors.grey[100]!,

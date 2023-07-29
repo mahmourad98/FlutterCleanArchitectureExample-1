@@ -1,29 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
+import 'package:untitled05/core/extras/services/app-localization-service/app_localization_service.dart';
 
 class AppNavigationService{
   ///DEFAULT CONSTRUCTOR
   AppNavigationService();
-
+  /////////////////////////
   final GlobalKey<NavigatorState> _navKey = GlobalKey<NavigatorState>();
   GlobalKey<NavigatorState> get navKey => _navKey;
-
+  /////////////////////////
   final NavigatorObserver _navObserver = NavigatorObserver();
   NavigatorObserver get navObserver => _navObserver;
-
+  /////////////////////////
   void goBack<T>([T? results,]) {
     return _navKey.currentState!.pop<T>(results,);
   }
-
+  /////////////////////////
   void goBackUntil({String? tillRouteName,}) {
     return _navKey.currentState!.popUntil(
       (Route r,) => (tillRouteName == null) ? false : (r.settings.name == tillRouteName),
     );
   }
-
+  /////////////////////////
   Future<T?> navigateTo<T, S>({required String routeName, S? arguments,}) async {
     return await _navKey.currentState!.pushNamed<T>(routeName, arguments: arguments,);
   }
-
+  /////////////////////////
   Future<T?> clearStackAndShow<T, S>({
     required String routeName, String? tillRouteName, S? arguments,
   }) async {
@@ -33,15 +35,15 @@ class AppNavigationService{
       arguments: arguments,
     );
   }
-
+  /////////////////////////
   Future<T?> replaceWith<T, S>({required String routeName, S? arguments,}) async {
     return await _navKey.currentState!.pushReplacementNamed<T, dynamic>(routeName, arguments: arguments, result: null,);
   }
-
+  /////////////////////////
   Future<T?> removeAndReplaceWith<T, S>({required String routeName, S? arguments, dynamic results,}) async {
     return await _navKey.currentState!.popAndPushNamed<T, dynamic>(routeName, arguments: arguments, result: results,);
   }
-
+  /////////////////////////
   Future<T?> pushDialog<T>({
     RouteSettings? settings, required WidgetBuilder widgetBuilder,
     String? label, bool isDismissible = false, Color color = Colors.transparent,
@@ -55,7 +57,7 @@ class AppNavigationService{
       barrierDismissible: isDismissible,
     );
   }
-
+  /////////////////////////
   Future<T?> pushBottomSheet<T>({
     RouteSettings? settings, required WidgetBuilder widgetBuilder, AnimationController? animationController,
     String? label, scrollable = true, bool isDismissible = false, Color color = Colors.transparent,

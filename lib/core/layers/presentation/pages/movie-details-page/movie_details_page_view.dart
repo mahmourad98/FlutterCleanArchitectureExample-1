@@ -29,7 +29,7 @@ class MovieDetailsPageView extends StatelessWidget {
         child: Scaffold(
           appBar: null,
           body: (viewModel.isBusy)
-          ? const SizedBox.expand(child: Center(child: CircularProgressIndicator(),),)
+          ? const SizedBox.expand()
           : (viewModel.hasError)
           ? const SizedBox.expand(child: Center(child: Text("Sorry Some Error Has Occurred",),),)
           : CustomScrollView(

@@ -24,6 +24,7 @@ dependencies:
   carousel_slider: any
   cached_network_image: any
   animate_do: any
+  progress_dialog_null_safe: any
   #Core
   flutter_hooks: any
   stacked: any
