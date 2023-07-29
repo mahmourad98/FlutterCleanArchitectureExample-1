@@ -12,14 +12,13 @@ class MyAppEntryPoint extends StatelessWidget {
   @override
   Widget build(BuildContext context,) {
     ///Builders
-    return ViewModelBuilder<_AppEntryPointViewModel>.reactive(
+    return ViewModelBuilder<_AppEntryPointViewModel>.nonReactive(
       fireOnViewModelReadyOnce: true,
       initialiseSpecialViewModelsOnce: true,
       createNewViewModelOnInsert: false,
       disposeViewModel: false,
       viewModelBuilder: () => _AppEntryPointViewModel(),
       onViewModelReady: (_AppEntryPointViewModel viewModel,) => viewModel.onModelReady(),
-      onDispose: (_AppEntryPointViewModel viewModel,) => viewModel.onDispose(),
       builder: (_, _AppEntryPointViewModel viewModel, __,) => WillPopScope(
         onWillPop: () async {
           viewModel.onClose();
@@ -43,5 +42,11 @@ class _AppEntryPointViewModel extends ReactiveViewModel with BaseViewModelHelper
 
   @override
   List<ListenableServiceMixin> get listenableServices => const [];
+
+  @override
+  void dispose() {
+    onDispose();
+    super.dispose();
+  }
 }
 

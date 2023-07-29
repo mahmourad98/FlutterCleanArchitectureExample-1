@@ -10,10 +10,10 @@ import 'package:untitled05/config/supported_languages.dart';
 import 'package:untitled05/core/extras/services/app-localization-service/app_localization_delegate.dart';
 import 'package:untitled05/core/extras/services/app-localization-service/app_localization_service.dart';
 import 'package:untitled05/core/extras/services/app-navigation-service/app_navigation_service.dart';
-import 'package:untitled05/core/extras/services/app-navigation-service/app_route_names.dart';
-import 'package:untitled05/core/extras/services/app-navigation-service/app_router.dart';
+import 'package:untitled05/core/extras/services/app-navigation-service/app_route_generator.dart';
 import 'package:untitled05/core/extras/utils/app_keyboard_hider_utility.dart';
 import 'package:untitled05/core/extras/utils/app_life_cycle_wrapper_utility.dart';
+import 'package:untitled05/core/layers/presentation/pages/splash-page/splash_page_view.dart';
 import 'package:untitled05/out-buildings/dependency_injector.dart';
 
 class MyApplication extends StatelessWidget {
@@ -44,8 +44,8 @@ class MyApplication extends StatelessWidget {
         },
         navigatorKey: serviceLocator<AppNavigationService>().navKey,
         navigatorObservers: _navigationObservers,
-        initialRoute: AppRouteNames.moviesRoute,
-        onGenerateInitialRoutes: (_,) => [AppRouter.onGenerateRoute(RouteSettings(name: _,),)!,],
+        initialRoute: SplashPageView.routeName,
+        onGenerateInitialRoutes: (_,) => [AppRouter.onGenerateRoute(RouteSettings(name: _, arguments: null,),),],
         routes: const <String, WidgetBuilder>{},
         onGenerateRoute: AppRouter.onGenerateRoute,
         onUnknownRoute: AppRouter.onGenerateRoute,
@@ -72,8 +72,8 @@ class MyApplication extends StatelessWidget {
         },
         navigatorKey: serviceLocator<AppNavigationService>().navKey,
         navigatorObservers: _navigationObservers,
-        initialRoute: Navigator.defaultRouteName,
-        onGenerateInitialRoutes: (String _,) => [AppRouter.onGenerateRoute(RouteSettings(name: _,),)!,],
+        initialRoute: SplashPageView.routeName,
+        onGenerateInitialRoutes: (_,) => [AppRouter.onGenerateRoute(RouteSettings(name: _, arguments: null,),),],
         routes: const <String, WidgetBuilder>{},
         onGenerateRoute: AppRouter.onGenerateRoute,
         onUnknownRoute: AppRouter.onGenerateRoute,

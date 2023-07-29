@@ -5,7 +5,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:stacked/stacked.dart';
 import 'package:untitled05/core/extras/constants/app_constants.dart';
 import 'package:untitled05/core/extras/services/app-navigation-service/app_navigation_service.dart';
-import 'package:untitled05/core/extras/services/app-navigation-service/app_route_names.dart';
+import 'package:untitled05/core/layers/presentation/pages/movie-details-page/movie_details_page_view.dart';
 import 'package:untitled05/core/layers/presentation/pages/movies-page/movies_page_view_model.dart';
 import 'package:untitled05/out-buildings/dependency_injector.dart';
 
@@ -33,7 +33,7 @@ class TopRatedMoviesSection extends ViewModelWidget<MoviesPageViewModel> {
               child: InkWell(
                 onTap: () {
                   serviceLocator<AppNavigationService>().navigateTo<dynamic, int>(
-                    routeName: AppRouteNames.movieDetailsRoute, arguments: movie.id,
+                    routeName: MovieDetailsPageView.routeName, arguments: movie.id,
                   );
                 },
                 child: ClipRRect(
