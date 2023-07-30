@@ -42,73 +42,76 @@ class _MoviesPageView extends ViewModelWidget<MoviesPageViewModel> {
       },
       child: Scaffold(
         appBar: null,
-        body: RefreshIndicator(
-          onRefresh: () {
-            if(!viewModel.isBusy) viewModel.onModelReady();
-            return Future.value();
-          },
-          child: GenericStateWrapperOnViewModel<MoviesPageViewModel>(
-            payloadWidget: SingleChildScrollView(
-              key: const Key('movie-scroll-view',),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const NowPlayingMoviesSection(),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 8.0,),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text("Popular",),
-                        InkWell(
-                          onTap: () {},
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0,),
-                            child: Row(
-                              children: const [
-                                Text('See More', style: TextStyle(color: Colors.black),),
-                                Icon(
-                                  Icons.arrow_forward_ios,
-                                  size: 16.0,
-                                ),
-                              ],
+        body: IgnorePointer(
+          ignoring: viewModel.isBusy,
+          ignoringSemantics: viewModel.isBusy,
+          child: RefreshIndicator(
+            onRefresh: () {
+              return Future(() => viewModel.onModelReady(),);
+            },
+            child: GenericStateWrapperOnViewModel<MoviesPageViewModel>(
+              payloadWidget: SingleChildScrollView(
+                key: const Key('movie-scroll-view',),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const NowPlayingMoviesSection(),
+                    Container(
+                      margin: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 8.0,),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text("Popular",),
+                          InkWell(
+                            onTap: () {},
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0,),
+                              child: Row(
+                                children: const [
+                                  Text('See More', style: TextStyle(color: Colors.black),),
+                                  Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: 16.0,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  const MostPopularMoviesWidget(),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 8.0,),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text("Top Rated",),
-                        InkWell(
-                          onTap: () {},
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0,),
-                            child: Row(
-                              children: const [
-                                Text('See More', style: TextStyle(color: Colors.black,),),
-                                Icon(
-                                  Icons.arrow_forward_ios,
-                                  size: 16.0,
-                                ),
-                              ],
+                    const MostPopularMoviesWidget(),
+                    Container(
+                      margin: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 8.0,),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text("Top Rated",),
+                          InkWell(
+                            onTap: () {},
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0,),
+                              child: Row(
+                                children: const [
+                                  Text('See More', style: TextStyle(color: Colors.black,),),
+                                  Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: 16.0,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  const TopRatedMoviesSection(),
-                  const SizedBox(height: 50.0,),
-                ],
+                    const TopRatedMoviesSection(),
+                    const SizedBox(height: 50.0,),
+                  ],
+                ),
               ),
+              specialLoader: const CustomLoader(customLoaderTypes: CustomLoaderTypes.shimmer,),
             ),
-            specialLoader: const CustomLoader(customLoaderTypes: CustomLoaderTypes.shimmer,),
           ),
         ),
       ),
