@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
-import 'package:untitled05/core/extras/helpers/general_usage_helper.dart';
 import 'package:untitled05/core/extras/services/app-localization-service/app_localization_service.dart';
 import 'package:untitled05/core/extras/services/app-navigation-service/app_navigation_service.dart';
 import 'package:untitled05/out-buildings/dependency_injector.dart';
@@ -8,9 +7,9 @@ import 'package:untitled05/out-buildings/dependency_injector.dart';
 class ProgressDialogUtility {
   static BuildContext get _buildContext => serviceLocator<AppNavigationService>().navKey.currentContext!;
   //////////////////////////
-  static ProgressDialog create({Widget? bodyWidget, String? message,}) {
+  static ProgressDialog create({Widget? bodyWidget, String? message, BuildContext? buildContext,}) {
     final progressDialog =  ProgressDialog(
-      _buildContext,
+      buildContext ?? _buildContext,
       customBody: null,
       type: ProgressDialogType.normal,
       textDirection: isRTL() ? TextDirection.rtl : TextDirection.ltr,
