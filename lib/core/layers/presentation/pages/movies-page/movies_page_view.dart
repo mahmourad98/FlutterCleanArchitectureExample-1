@@ -4,6 +4,7 @@ import 'package:untitled05/core/layers/presentation/pages/movies-page/movies_pag
 import 'package:untitled05/core/layers/presentation/pages/movies-page/sub-views/most_popular_movies_section.dart';
 import 'package:untitled05/core/layers/presentation/pages/movies-page/sub-views/now_playing_movies_section.dart';
 import 'package:untitled05/core/layers/presentation/pages/movies-page/sub-views/top_rated_movies_section.dart';
+import 'package:untitled05/core/layers/presentation/shared-view-components/custom_loader_widget.dart';
 import 'package:untitled05/core/layers/presentation/shared-view-components/generic_state_wrapper_on_view_model_widget.dart';
 
 class MoviesPageView extends StatelessWidget {
@@ -15,8 +16,10 @@ class MoviesPageView extends StatelessWidget {
     return ViewModelBuilder<MoviesPageViewModel>.reactive(
       key: key,
       fireOnViewModelReadyOnce: true,
+      initialiseSpecialViewModelsOnce: true,
+      createNewViewModelOnInsert: false,
       disposeViewModel: true,
-      viewModelBuilder: () => MoviesPageViewModel(),
+      viewModelBuilder: () => MoviesPageViewModel.create(),
       onViewModelReady: (viewModel,) => viewModel.onModelReady(),
       onDispose: (viewModel,) => viewModel.onDispose(),
       builder: (_, viewModel, __,) => const _MoviesPageView(key: routeKey,),
@@ -25,8 +28,11 @@ class MoviesPageView extends StatelessWidget {
 }
 
 class _MoviesPageView extends ViewModelWidget<MoviesPageViewModel> {
+  @override
+  bool get reactive => true;
+  /////////////////////////
   const _MoviesPageView({Key? key,}) : super(key: key,);
-
+  /////////////////////////
   @override
   Widget build(BuildContext context, MoviesPageViewModel viewModel,) {
     return WillPopScope(
@@ -36,74 +42,73 @@ class _MoviesPageView extends ViewModelWidget<MoviesPageViewModel> {
       },
       child: Scaffold(
         appBar: null,
-        body: GenericStateWrapperOnViewModel<MoviesPageViewModel>(
-          payloadWidget: SingleChildScrollView(
-            key: const Key('movie-scroll-view',),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const NowPlayingMoviesSection(),
-                Container(
-                  margin: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 8.0,),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        "Popular",
-                      ),
-                      InkWell(
-                        onTap: () => {
-                          ///TODO : NAVIGATION TO POPULAR SCREEN
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0,),
-                          child: Row(
-                            children: const [
-                              Text('See More', style: TextStyle(color: Colors.black),),
-                              Icon(
-                                Icons.arrow_forward_ios,
-                                size: 16.0,
-                              ),
-                            ],
+        body: RefreshIndicator(
+          onRefresh: () {
+            if(!viewModel.isBusy) viewModel.onModelReady();
+            return Future.value();
+          },
+          child: GenericStateWrapperOnViewModel<MoviesPageViewModel>(
+            payloadWidget: SingleChildScrollView(
+              key: const Key('movie-scroll-view',),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const NowPlayingMoviesSection(),
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 8.0,),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text("Popular",),
+                        InkWell(
+                          onTap: () {},
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0,),
+                            child: Row(
+                              children: const [
+                                Text('See More', style: TextStyle(color: Colors.black),),
+                                Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 16.0,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                const MostPopularMoviesWidget(),
-                Container(
-                  margin: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 8.0,),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        "Top Rated",
-                      ),
-                      InkWell(
-                        onTap: () => {
-                          /// TODO : NAVIGATION TO Top Rated Movies Screen
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0,),
-                          child: Row(
-                            children: const [
-                              Text('See More', style: TextStyle(color: Colors.black,),),
-                              Icon(
-                                Icons.arrow_forward_ios,
-                                size: 16.0,
-                              ),
-                            ],
+                  const MostPopularMoviesWidget(),
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 8.0,),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text("Top Rated",),
+                        InkWell(
+                          onTap: () {},
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0,),
+                            child: Row(
+                              children: const [
+                                Text('See More', style: TextStyle(color: Colors.black,),),
+                                Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 16.0,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                const TopRatedMoviesSection(),
-                const SizedBox(height: 50.0,),
-              ],
+                  const TopRatedMoviesSection(),
+                  const SizedBox(height: 50.0,),
+                ],
+              ),
             ),
+            specialLoader: const CustomLoader(customLoaderTypes: CustomLoaderTypes.shimmer,),
           ),
         ),
       ),

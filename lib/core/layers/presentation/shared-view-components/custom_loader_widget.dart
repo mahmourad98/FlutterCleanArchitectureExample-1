@@ -12,18 +12,13 @@ class CustomLoader extends StatelessWidget {
   @override
   Widget build(BuildContext context,) {
     return Container(
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0,),),
-      child: Container(
-        height: 75.0,
-        width: 75.0,
-        padding: const EdgeInsets.all(10.0,),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: Colors.grey.withOpacity(0.15,),
-          borderRadius: BorderRadius.circular(10.0,),
-        ),
-        child: _getLoader(customLoaderTypes,),
+      padding: const EdgeInsets.all(10.0,),
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: Colors.grey.withOpacity(0.15,),
+        borderRadius: BorderRadius.circular(10.0,),
       ),
+      child: _getLoader(customLoaderTypes,),
     );
   }
   /////////////////////////
@@ -47,6 +42,7 @@ class RingLoaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context,) {
     return Container(
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0,),),
       alignment: Alignment.center,
       width: 60.0,
       height: 60.0,
@@ -66,6 +62,7 @@ class RippleLoaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context,) {
     return Container(
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0,),),
       alignment: Alignment.center,
       width: 60.0,
       height: 60.0,

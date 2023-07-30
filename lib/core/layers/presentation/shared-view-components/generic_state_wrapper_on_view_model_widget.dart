@@ -9,14 +9,14 @@ class GenericStateWrapperOnViewModel<T extends BaseViewModel> extends ViewModelW
   final Object? specialBusyObject;
   final Widget? specialLoader;
   final Widget? specialErrorVisualizer;
-
+  /////////////////////////
   @override
   bool get reactive => true;
-
+  /////////////////////////
   const GenericStateWrapperOnViewModel({
-    required this.payloadWidget, this.specialBusyObject, this.specialLoader, this.specialErrorVisualizer, Key? key,
-  }) : super(key: key,);
-
+    required this.payloadWidget, this.specialBusyObject, this.specialLoader, this.specialErrorVisualizer,
+  }) : super(key: null,);
+  /////////////////////////
   @override
   Widget build(BuildContext context, T viewModel,) {
     return Container(
@@ -25,9 +25,9 @@ class GenericStateWrapperOnViewModel<T extends BaseViewModel> extends ViewModelW
       : (viewModel.hasError) ? _errorWidget(viewModel.error(viewModel,),) : payloadWidget,
     );
   }
-
+  /////////////////////////
   bool isBusy(T viewModel,) => (specialBusyObject != null) ? viewModel.busy(specialBusyObject,) : viewModel.isBusy ;
-
+  /////////////////////////
   Widget _loadingWidget() {
     Widget placeHolderWidget = const Center(
       child: CustomLoader(
@@ -39,7 +39,7 @@ class GenericStateWrapperOnViewModel<T extends BaseViewModel> extends ViewModelW
     }
     return placeHolderWidget;
   }
-
+  /////////////////////////
   Widget _errorWidget(dynamic err,) {
     if (specialErrorVisualizer != null) {
       return specialErrorVisualizer!;

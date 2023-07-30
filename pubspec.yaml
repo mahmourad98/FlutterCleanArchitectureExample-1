@@ -5,6 +5,7 @@ version: 1.0.0+1
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
+  flutter: ">=3.0.0 <3.10.0"
 
 dependencies:
   flutter:
@@ -70,6 +71,8 @@ dev_dependencies:
   freezed: any
 
 dependency_overrides:
+  stacked: 3.2.8
+  stacked_services: 1.0.4
   device_preview: 1.1.0
   json_annotation: 4.8.0
   freezed_annotation: 2.2.0
