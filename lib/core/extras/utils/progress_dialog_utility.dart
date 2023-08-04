@@ -44,4 +44,10 @@ class ProgressDialogUtility {
       widgetAboveTheDialog: null,
     );
   }
+  //////////////////////////
+  static void updateMessage({required ProgressDialog progressDialog, required String message,}) {
+    return progressDialog.update(
+      message: message,
+    );
+  }
 }
