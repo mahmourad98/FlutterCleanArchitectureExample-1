@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:untitled05/core/extras/services/app-localization-service/app_localization_service.dart';
 import 'package:untitled05/core/extras/services/app-navigation-service/app_navigation_service.dart';
@@ -24,7 +25,7 @@ Future setupServiceLocator(EnvironmentType envIfoMode,) async {
     serviceLocator.registerSingleton<AppNavigationService>(AppNavigationService(),);
     serviceLocator.registerSingleton<AppLocalizationService>(AppLocalizationService(),);
     await serviceLocator<AppLocalizationService>().initAppLocaleFromDB();
-    serviceLocator.registerLazySingleton<DioNetworkService>(() => DioNetworkService(),);
+    serviceLocator.registerSingleton<DioNetworkService>(DioNetworkService.create(Dio(),),);
     serviceLocator.registerLazySingleton<MoviesRemoteDataSource>(() => MoviesRemoteDataSource(),);
     serviceLocator.registerLazySingleton<MoviesRepository>(() => MoviesRepository(serviceLocator<MoviesRemoteDataSource>(),),);
     serviceLocator.registerLazySingleton<NowPlayingMoviesUsecase>(() => NowPlayingMoviesUsecase(serviceLocator<MoviesRepository>(),),);

@@ -1,10 +1,9 @@
+//ignore_for_file: constant_identifier_names
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
-import 'package:flutter/foundation.dart';
 import 'package:open_file/open_file.dart' as open_file;
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as path_provider;
@@ -14,64 +13,50 @@ import 'package:untitled05/core/extras/helpers/common_response_model_helper.dart
 import 'package:untitled05/core/extras/helpers/general_usage_helper.dart';
 import 'package:untitled05/core/extras/services/dio-network-service/common-response-model/common_response_model.dart';
 import 'package:untitled05/core/extras/services/dio-network-service/dio_network_errors.dart';
+import 'package:untitled05/core/extras/services/dio-network-service/general_network_interceptor.dart';
 import 'package:untitled05/out-buildings/app_environment.dart';
 import 'package:untitled05/out-buildings/app_logger.dart';
 import 'package:untitled05/out-buildings/dependency_injector.dart';
 
 class DioNetworkService {
-  ///ignore: constant_identifier_names
   static const CLASS_NAME = "DioNetworkService";
-
+  /////////////////////////
   static const _jsonDecoder = JsonDecoder();
   static const _jsonEncoder = JsonEncoder();
-
+  /////////////////////////
+  final Dio _dio;
+  Dio get dio => _dio;
+  ///DEFAULT CONSTRUCTOR
+  DioNetworkService.create(this._dio,){
+    _dio.options = _baseOptions;
+    _dio.interceptors.addAll(_cacheInterceptors,);
+    _dio.interceptors.addAll(_interceptors,);
+  }
+  ///FACTORY CONSTRUCTOR - USE ONLY WHEN YOU NEED TO CREATE A NEW INSTANCE OF THIS CLASS ON EVERY CALL
+  factory DioNetworkService.insert([Dio? dio,]) {
+    final obj = DioNetworkService.create(dio ?? Dio(),);
+    return obj;
+  }
   ///APP ENVIRONMENT
   AppEnvironment get _env => serviceLocator<AppEnvironment>();
-
-  ///DIO VARIABLES
-  late final Dio _dio;
-  Dio get dio => _dio;
-
   ///BASE OPTIONS
-  final BaseOptions _baseOptions = BaseOptions(
+  late final BaseOptions _baseOptions = BaseOptions(
+    baseUrl: _env.environmentType.apiUrl,
     connectTimeout: 60000,
     sendTimeout: 60000,
     receiveTimeout: 60000,
   );
-
   ///INTERCEPTORS
-  List<Interceptor> get _interceptors => [
+  late final List<Interceptor> _interceptors = [
     PrettyDioLogger(requestBody: true, requestHeader: true, responseBody: true, responseHeader: true,),
     RequestsInspectorInterceptor(),
+    GeneralRequestAndResponseInterceptor(dio: dio,),
   ];
-
-  ///INTERCEPTOR WRAPPER
-  InterceptorsWrapper get _interceptorWrapper => InterceptorsWrapper(
-    onRequest: (options, handler,) async {
-      return handler.next(options,);
-    },
-    onResponse: (response, handler,) async {
-      return handler.next(response,);
-    },
-    onError: (DioError e, handler,) async {
-      return handler.next(e,);
-    },
-  );
-
-  ///CACHE OPTIONS
-  CacheOptions get firstCacheOptions => CacheOptions(store: MemCacheStore(), hitCacheOnErrorExcept: [],);
-  DioCacheManager get secondCacheOptions => DioCacheManager(CacheConfig(),);
-
-  DioNetworkService() {
-    _dio = Dio();
-    _baseOptions.baseUrl = _env.environmentType.apiUrl;
-    if (kDebugMode) {
-      _dio.interceptors.addAll(
-        [..._interceptors, _interceptorWrapper, DioCacheInterceptor(options: firstCacheOptions,), secondCacheOptions.interceptor,],
-      );
-    }
-    _dio.options = _baseOptions;
-  }
+  ///CACHE INTERCEPTORS
+  late final List<Interceptor> _cacheInterceptors = [
+    DioCacheInterceptor(options: CacheOptions(store: MemCacheStore(), hitCacheOnErrorExcept: [],),),
+    DioCacheManager(CacheConfig(),).interceptor,
+  ];
 
   Future<T> postHttp<T>({
     required String url, required Map<String, dynamic> body,
