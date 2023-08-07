@@ -1,4 +1,13 @@
-enum NetworkFailureType { offline, connectionTimeOut, cancelled, validationError, clientError, serverError, unknown,}
+enum NetworkFailureType {
+  offline,
+  connectionTimeOut,
+  cancelled,
+  unknown,
+  validationError,
+  clientError,
+  serverError,
+  noResponse,
+}
 
 extension FailureMessage on NetworkFailureType{
   String get message {
@@ -10,6 +19,7 @@ extension FailureMessage on NetworkFailureType{
       case NetworkFailureType.validationError: return "Sorry, Wrong Data Was Sent.";
       case NetworkFailureType.clientError: return "Sorry, You Are Not Authorized.";
       case NetworkFailureType.serverError: return "Sorry, Server Is Not Available.";
+      case NetworkFailureType.noResponse: return "Sorry, Empty Response.";
     }
   }
 }
@@ -32,7 +42,7 @@ extension StatusCodesResult on int {
       return NetworkFailureType.serverError;
     }
     else {
-      return NetworkFailureType.unknown;
+      return NetworkFailureType.noResponse;
     }
   }
 }

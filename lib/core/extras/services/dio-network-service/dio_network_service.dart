@@ -1,6 +1,7 @@
 //ignore_for_file: constant_identifier_names
 import 'dart:convert';
 import 'dart:io';
+import 'package:built_value/json_object.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
@@ -61,7 +62,7 @@ class DioNetworkService {
     DioCacheManager(CacheConfig(),).interceptor,
   ];
   ///POST HTTP
-  Future<Map<String, dynamic>> postHttp<T>({
+  Future<Map> postHttp<T>({
     required String url, required Map<String, dynamic> body,
     List<Interceptor>? interceptors, Options? options, Map<String, dynamic>? queryParameters,
   }) async {
@@ -97,15 +98,15 @@ class DioNetworkService {
     ///NETWORK SUCCESS
     if(response.statusCode?.responseType == null) {
       final result = responseConverter(response.statusCode, response.data,);
-      return result;
+      return JsonObject(result,).asMap;
     }
     ///NETWORK ERROR
     else {
-      return throw NetworkError(response.statusCode!.responseType!, response.data,);
+      return throw NetworkError(response.statusCode!.responseType!, JsonObject(response.data,).asMap,);
     }
   }
   ///POST HTTP WITH FILE
-  Future<Map<String, dynamic>> multiPartPostHttp<T>({
+  Future<Map> multiPartPostHttp<T>({
     required String url, required Map<String, dynamic> body,
     List<Interceptor>? interceptors, Options? options, Map<String, dynamic>? queryParameters,
     void Function(int, int,)? onSendProgress,
@@ -142,15 +143,15 @@ class DioNetworkService {
     ///NETWORK SUCCESS
     if(response.statusCode?.responseType == null) {
       final result = responseConverter(response.statusCode, response.data,);
-      return result;
+      return JsonObject(result,).asMap;
     }
     ///NETWORK ERROR
     else {
-      return throw NetworkError(response.statusCode!.responseType!, response.data,);
+      return throw NetworkError(response.statusCode!.responseType!, JsonObject(response.data,).asMap,);
     }
   }
   ///PUT HTTP
-  Future<Map<String, dynamic>> putHttp<T>({
+  Future<Map> putHttp<T>({
     required String url, required Map<String, dynamic> body,
     List<Interceptor>? interceptors, Options? options, Map<String, dynamic>? queryParameters,
   }) async {
@@ -186,15 +187,15 @@ class DioNetworkService {
     ///NETWORK SUCCESS
     if(response.statusCode?.responseType == null) {
       final result = responseConverter(response.statusCode, response.data,);
-      return result;
+      return JsonObject(result,).asMap;
     }
     ///NETWORK ERROR
     else {
-      return throw NetworkError(response.statusCode!.responseType!, response.data,);
+      return throw NetworkError(response.statusCode!.responseType!, JsonObject(response.data,).asMap,);
     }
   }
   ///GET HTTP
-  Future<Map<String, dynamic>> getHttp<T>({
+  Future<Map> getHttp<T>({
     required String url,
     List<Interceptor>? interceptors, Options? options,  Map<String, dynamic>? queryParameters,
   }) async {
@@ -228,15 +229,15 @@ class DioNetworkService {
     ///NETWORK SUCCESS
     if(response.statusCode?.responseType == null) {
       final result = responseConverter(response.statusCode, response.data,);
-      return result;
+      return JsonObject(result,).asMap;
     }
     ///NETWORK ERROR
     else {
-      return throw NetworkError(response.statusCode!.responseType!, response.data,);
+      return throw NetworkError(response.statusCode!.responseType!, JsonObject(response.data,).asMap,);
     }
   }
   ///DELETE HTTP
-  Future<Map<String, dynamic>> deleteHttp<T>({
+  Future<Map> deleteHttp<T>({
     required String url,
     List<Interceptor>? interceptors, Options? options,  Map<String, dynamic>? queryParameters,
   }) async {
@@ -270,11 +271,11 @@ class DioNetworkService {
     ///NETWORK SUCCESS
     if(response.statusCode?.responseType == null) {
       final result = responseConverter(response.statusCode, response.data,);
-      return result;
+      return JsonObject(result,).asMap;
     }
     ///NETWORK ERROR
     else {
-      return throw NetworkError(response.statusCode!.responseType!, response.data,);
+      return throw NetworkError(response.statusCode!.responseType!, JsonObject(response.data,).asMap,);
     }
   }
   ///DOWNLOAD FILE
