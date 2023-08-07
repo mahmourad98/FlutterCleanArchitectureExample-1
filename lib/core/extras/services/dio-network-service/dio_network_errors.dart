@@ -18,11 +18,11 @@ extension StatusCodesResult on int? {
     if (this == null) {
       return NetworkFailureType.offline;
     }
-    else if (this! >= 100 && this! < 300) {
-      return null;
-    }
     else if (this! >= 0 && this! < 100) {
       return NetworkFailureType.connectionTimeOut;
+    }
+    else if (this! >= 100 && this! < 300) {
+      return null;
     }
     else if (this! >= 300 && this! < 400) {
       return NetworkFailureType.validationError;

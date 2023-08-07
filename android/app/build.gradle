@@ -52,7 +52,7 @@ android {
 
     signingConfigs {
         release {
-            storeFile rootProject.file("app/app-key.jks")
+            storeFile rootProject.file("app/flutter-clean-architecture-key.jks")
             keyAlias keystoreProperties['keyAlias']
             keyPassword keystoreProperties['keyPassword']
             storePassword keystoreProperties['storePassword']
