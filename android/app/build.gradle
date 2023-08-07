@@ -52,12 +52,10 @@ android {
 
     signingConfigs {
         release {
-            storeFile rootProject.file("app/flutter-clean-architecture-key.jks")
+            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
             keyAlias keystoreProperties['keyAlias']
             keyPassword keystoreProperties['keyPassword']
             storePassword keystoreProperties['storePassword']
-            v1SigningEnabled true
-            v2SigningEnabled true
         }
         debug{}
     }
@@ -73,18 +71,6 @@ android {
             }
             minifyEnabled true
             shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-        debug {
-            if (keystorePropertiesFile.exists()) {
-                signingConfig signingConfigs.release
-                println "ReleaseModeSinging...."
-            } else {
-                signingConfig signingConfigs.debug
-                println "DebugModeSinging...."
-            }
-            minifyEnabled false
-            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
