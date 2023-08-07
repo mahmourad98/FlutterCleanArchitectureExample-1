@@ -1,4 +1,4 @@
-enum NetworkFailureType { offline, connectionTimeOut, cancelled,  validationError, clientError, serverError,  unknown,}
+enum NetworkFailureType { offline, connectionTimeOut, cancelled, validationError, clientError, serverError, unknown,}
 
 extension FailureMessage on NetworkFailureType{
   String get message {
