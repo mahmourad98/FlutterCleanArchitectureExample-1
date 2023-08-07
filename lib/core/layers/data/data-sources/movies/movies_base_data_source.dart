@@ -1,7 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:dartz/dartz.dart';
-import 'package:untitled05/core/extras/services/dio-network-service/dio_network_errors.dart';
-import 'package:untitled05/core/layers/data/data-models/movies/movies_dto.dart';
+import 'package:untitled05/core/layers/data/data-models/common-response-model/common_response_model.dart';
 
 class MoviesEndPoint {
   static get NOW_PLAYING => "/movie/now_playing";
@@ -10,15 +9,17 @@ class MoviesEndPoint {
 }
 
 abstract class MoviesBaseDataSource {
-  Future<Either<NetworkFailure, MoviesDto>> getNowPlayingMovies({
+  const MoviesBaseDataSource();
+  ////////////////////
+  Future<Either<dynamic, CommonResponse>> getNowPlayingMovies({
     bool localRequest = false, bool authRequest = false,
   });
-
-  Future<Either<NetworkFailure, MoviesDto>> getTopRatedMovies({
+  ////////////////////
+  Future<Either<dynamic, CommonResponse>> getTopRatedMovies({
     bool localRequest = false, bool authRequest = false,
   });
-
-  Future<Either<NetworkFailure, MoviesDto>> getMostPopularMovies({
+  ////////////////////
+  Future<Either<dynamic, CommonResponse>> getMostPopularMovies({
     bool localRequest = false, bool authRequest = false,
   });
 }

@@ -10,8 +10,6 @@ import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:requests_inspector/requests_inspector.dart';
 import 'package:untitled05/core/extras/helpers/common_response_model_helper.dart';
-import 'package:untitled05/core/extras/helpers/general_usage_helper.dart';
-import 'package:untitled05/core/extras/services/dio-network-service/common-response-model/common_response_model.dart';
 import 'package:untitled05/core/extras/services/dio-network-service/dio_network_errors.dart';
 import 'package:untitled05/core/extras/services/dio-network-service/general_network_interceptor.dart';
 import 'package:untitled05/out-buildings/app_environment.dart';
@@ -45,6 +43,11 @@ class DioNetworkService {
     connectTimeout: 60000,
     sendTimeout: 60000,
     receiveTimeout: 60000,
+    contentType: Headers.jsonContentType,
+    responseType: ResponseType.json,
+    validateStatus: (int? status,) => (status != null),
+    receiveDataWhenStatusError: true,
+    setRequestContentTypeWhenNoPayload: true,
   );
   ///INTERCEPTORS
   late final List<Interceptor> _interceptors = [
@@ -57,146 +60,272 @@ class DioNetworkService {
     DioCacheInterceptor(options: CacheOptions(store: MemCacheStore(), hitCacheOnErrorExcept: [],),),
     DioCacheManager(CacheConfig(),).interceptor,
   ];
-
-  Future<T> postHttp<T>({
+  ///POST HTTP
+  Future<Map<String, dynamic>> postHttp<T>({
     required String url, required Map<String, dynamic> body,
-    List<Interceptor>? interceptors, Options? options,
+    List<Interceptor>? interceptors, Options? options, Map<String, dynamic>? queryParameters,
   }) async {
-    ///Add request interceptors [interceptors]
+    ///ADD REQUEST INTERCEPTORS
     if (interceptors != null) _dio.interceptors.addAll(interceptors,);
-    ///firing the request
+    ///FIRING REQUEST
     late Response response;
     try {
       response = await _dio.post<T>(
         url,
-        data: jsonEncode(body,),
+        data: _jsonEncoder.convert(body,),
+        queryParameters: queryParameters,
         options: options,
+        onSendProgress: null,
       );
-      final failureType = response.statusCode.responseType;
-      final CommonResponse commonResponse = CommonResponse.fromJson(responseConverter(response.statusCode, response.data,),);
-      if(failureType.isNotNull) {
-        return throw NetworkFailure<dynamic>(failureType!, commonResponse.errors,);
+    }
+    ///NETWORK FAILURE
+    catch (e) {
+      e.exceptionErrorLog(CLASS_NAME,);
+      if (e is DioError && (e.error is SocketException || e.error is WebSocketException)) {
+        return throw NetworkFailure<dynamic>(NetworkFailureType.offline, e,);
+      }
+      else if(e is DioError && (e.type == DioErrorType.connectTimeout || e.type == DioErrorType.receiveTimeout || e.type == DioErrorType.sendTimeout)) {
+        return throw NetworkFailure<dynamic>(NetworkFailureType.connectionTimeOut, e.error,);
+      }
+      else if(e is DioError && e.type == DioErrorType.cancel) {
+        return throw NetworkFailure<dynamic>(NetworkFailureType.cancelled, e,);
       }
       else {
-        return (commonResponse.data?.value ?? {}) as T;
+        return throw NetworkFailure<dynamic>(NetworkFailureType.unknown, e,);
       }
-    } catch (e) {
-      e.exceptionErrorLog(CLASS_NAME,);
-      ///All exceptions when using Dio, must be dio-error
-      if (e is SocketException || e is WebSocketException) {
-        return throw NetworkFailure<dynamic>(NetworkFailureType.offline, e,);
-      } else if(e is DioError && e.type == DioErrorType.connectTimeout) {
-        return throw NetworkFailure<dynamic>(NetworkFailureType.connectionTimeOut, e,);
-      }
-      ///return Either-Left
-      return throw NetworkFailure<dynamic>(NetworkFailureType.unknown, e,);
+    }
+    ///NETWORK SUCCESS
+    if(response.statusCode?.responseType == null) {
+      final result = responseConverter(response.statusCode, response.data,);
+      return result;
+    }
+    ///NETWORK ERROR
+    else {
+      return throw NetworkError(response.statusCode!.responseType!, response.data,);
     }
   }
-
-  Future<T> multiPartPostHttp<T>({
-    required String url, required FormData formData,
-    List<Interceptor>? interceptors, Options? options,
+  ///POST HTTP WITH FILE
+  Future<Map<String, dynamic>> multiPartPostHttp<T>({
+    required String url, required Map<String, dynamic> body,
+    List<Interceptor>? interceptors, Options? options, Map<String, dynamic>? queryParameters,
     void Function(int, int,)? onSendProgress,
   }) async {
-    ///Add request interceptors [interceptors]
+    ///ADD REQUEST INTERCEPTORS
     if (interceptors != null) _dio.interceptors.addAll(interceptors,);
-    ///firing the request
+    ///FIRING REQUEST
     late Response response;
     try {
       response = await _dio.post<T>(
         url,
-        data: formData,
+        data: FormData.fromMap(body,),
+        queryParameters: queryParameters,
         options: options,
         onSendProgress: onSendProgress,
       );
-      final failureType = response.statusCode.responseType;
-      final CommonResponse commonResponse = CommonResponse.fromJson(responseConverter(response.statusCode, response.data,),);
-      if(failureType.isNotNull) {
-        return throw NetworkFailure<dynamic>(failureType!, commonResponse.errors,);
+    }
+    ///NETWORK FAILURE
+    catch (e) {
+      e.exceptionErrorLog(CLASS_NAME,);
+      if (e is DioError && (e.error is SocketException || e.error is WebSocketException)) {
+        return throw NetworkFailure<dynamic>(NetworkFailureType.offline, e,);
+      }
+      else if(e is DioError && (e.type == DioErrorType.connectTimeout || e.type == DioErrorType.receiveTimeout || e.type == DioErrorType.sendTimeout)) {
+        return throw NetworkFailure<dynamic>(NetworkFailureType.connectionTimeOut, e.error,);
+      }
+      else if(e is DioError && e.type == DioErrorType.cancel) {
+        return throw NetworkFailure<dynamic>(NetworkFailureType.cancelled, e,);
       }
       else {
-        return (commonResponse.data?.value ?? {}) as T;
+        return throw NetworkFailure<dynamic>(NetworkFailureType.unknown, e,);
       }
-    } catch (e) {
-      e.exceptionErrorLog(CLASS_NAME,);
-      ///All exceptions when using Dio, must be dio-error
-      if (e is SocketException || e is WebSocketException) {
-        return throw NetworkFailure<dynamic>(NetworkFailureType.offline, e,);
-      } else if(e is DioError && e.type == DioErrorType.connectTimeout) {
-        return throw NetworkFailure<dynamic>(NetworkFailureType.connectionTimeOut, e,);
-      }
-      ///return Either-Left
-      return throw NetworkFailure<dynamic>(NetworkFailureType.unknown, e,);
+    }
+    ///NETWORK SUCCESS
+    if(response.statusCode?.responseType == null) {
+      final result = responseConverter(response.statusCode, response.data,);
+      return result;
+    }
+    ///NETWORK ERROR
+    else {
+      return throw NetworkError(response.statusCode!.responseType!, response.data,);
     }
   }
-
-  Future<T> getHttp<T>({
-    required String url, List<Interceptor>? interceptors, Options? options,
+  ///PUT HTTP
+  Future<Map<String, dynamic>> putHttp<T>({
+    required String url, required Map<String, dynamic> body,
+    List<Interceptor>? interceptors, Options? options, Map<String, dynamic>? queryParameters,
   }) async {
-    /// Add request interceptors [interceptors]
-    if (interceptors != null) {
-      _dio.interceptors.addAll(interceptors,);
+    ///ADD REQUEST INTERCEPTORS
+    if (interceptors != null) _dio.interceptors.addAll(interceptors,);
+    ///FIRING REQUEST
+    late Response response;
+    try {
+      response = await _dio.put<T>(
+        url,
+        data: _jsonEncoder.convert(body,),
+        queryParameters: queryParameters,
+        options: options,
+        onSendProgress: null,
+      );
     }
-
-    ///firing the request
+    ///NETWORK FAILURE
+    catch (e) {
+      e.exceptionErrorLog(CLASS_NAME,);
+      if (e is DioError && (e.error is SocketException || e.error is WebSocketException)) {
+        return throw NetworkFailure<dynamic>(NetworkFailureType.offline, e,);
+      }
+      else if(e is DioError && (e.type == DioErrorType.connectTimeout || e.type == DioErrorType.receiveTimeout || e.type == DioErrorType.sendTimeout)) {
+        return throw NetworkFailure<dynamic>(NetworkFailureType.connectionTimeOut, e.error,);
+      }
+      else if(e is DioError && e.type == DioErrorType.cancel) {
+        return throw NetworkFailure<dynamic>(NetworkFailureType.cancelled, e,);
+      }
+      else {
+        return throw NetworkFailure<dynamic>(NetworkFailureType.unknown, e,);
+      }
+    }
+    ///NETWORK SUCCESS
+    if(response.statusCode?.responseType == null) {
+      final result = responseConverter(response.statusCode, response.data,);
+      return result;
+    }
+    ///NETWORK ERROR
+    else {
+      return throw NetworkError(response.statusCode!.responseType!, response.data,);
+    }
+  }
+  ///GET HTTP
+  Future<Map<String, dynamic>> getHttp<T>({
+    required String url,
+    List<Interceptor>? interceptors, Options? options,  Map<String, dynamic>? queryParameters,
+  }) async {
+    ///ADD REQUEST INTERCEPTORS
+    if (interceptors != null) _dio.interceptors.addAll(interceptors,);
+    ///FIRING REQUEST
     late Response response;
     try {
       response = await _dio.get<T>(
         url,
         options: options,
+        queryParameters: queryParameters,
       );
-      final failureType = response.statusCode.responseType;
-      final CommonResponse commonResponse = CommonResponse.fromJson(responseConverter(response.statusCode, response.data,),);
-      if(failureType.isNotNull) {
-        return throw NetworkFailure<dynamic>(failureType!, commonResponse.errors,);
+    }
+    ///NETWORK FAILURE
+    catch (e) {
+      e.exceptionErrorLog(CLASS_NAME,);
+      if (e is DioError && (e.error is SocketException || e.error is WebSocketException)) {
+        return throw NetworkFailure<dynamic>(NetworkFailureType.offline, e,);
+      }
+      else if(e is DioError && (e.type == DioErrorType.connectTimeout || e.type == DioErrorType.receiveTimeout || e.type == DioErrorType.sendTimeout)) {
+        return throw NetworkFailure<dynamic>(NetworkFailureType.connectionTimeOut, e.error,);
+      }
+      else if(e is DioError && e.type == DioErrorType.cancel) {
+        return throw NetworkFailure<dynamic>(NetworkFailureType.cancelled, e,);
       }
       else {
-        return (commonResponse.data?.value ?? {}) as T;
+        return throw NetworkFailure<dynamic>(NetworkFailureType.unknown, e,);
       }
-    } catch (e) {
-      e.exceptionErrorLog(CLASS_NAME,);
-      ///All exceptions when using Dio, must be dio-error
-      if (e is SocketException || e is WebSocketException) {
-        return throw NetworkFailure<dynamic>(NetworkFailureType.offline, e,);
-      } else if(e is DioError && e.type == DioErrorType.connectTimeout) {
-        return throw NetworkFailure<dynamic>(NetworkFailureType.connectionTimeOut, e,);
-      }
-      ///return Either-Left
-      return throw NetworkFailure<dynamic>(NetworkFailureType.unknown, e,);
+    }
+    ///NETWORK SUCCESS
+    if(response.statusCode?.responseType == null) {
+      final result = responseConverter(response.statusCode, response.data,);
+      return result;
+    }
+    ///NETWORK ERROR
+    else {
+      return throw NetworkError(response.statusCode!.responseType!, response.data,);
     }
   }
-
+  ///DELETE HTTP
+  Future<Map<String, dynamic>> deleteHttp<T>({
+    required String url,
+    List<Interceptor>? interceptors, Options? options,  Map<String, dynamic>? queryParameters,
+  }) async {
+    ///ADD REQUEST INTERCEPTORS
+    if (interceptors != null) _dio.interceptors.addAll(interceptors,);
+    ///FIRING REQUEST
+    late Response response;
+    try {
+      response = await _dio.delete<T>(
+        url,
+        options: options,
+        queryParameters: queryParameters,
+      );
+    }
+    ///NETWORK FAILURE
+    catch (e) {
+      e.exceptionErrorLog(CLASS_NAME,);
+      if (e is DioError && (e.error is SocketException || e.error is WebSocketException)) {
+        return throw NetworkFailure<dynamic>(NetworkFailureType.offline, e,);
+      }
+      else if(e is DioError && (e.type == DioErrorType.connectTimeout || e.type == DioErrorType.receiveTimeout || e.type == DioErrorType.sendTimeout)) {
+        return throw NetworkFailure<dynamic>(NetworkFailureType.connectionTimeOut, e.error,);
+      }
+      else if(e is DioError && e.type == DioErrorType.cancel) {
+        return throw NetworkFailure<dynamic>(NetworkFailureType.cancelled, e,);
+      }
+      else {
+        return throw NetworkFailure<dynamic>(NetworkFailureType.unknown, e,);
+      }
+    }
+    ///NETWORK SUCCESS
+    if(response.statusCode?.responseType == null) {
+      final result = responseConverter(response.statusCode, response.data,);
+      return result;
+    }
+    ///NETWORK ERROR
+    else {
+      return throw NetworkError(response.statusCode!.responseType!, response.data,);
+    }
+  }
+  ///DOWNLOAD FILE
   Future<bool> downloadFile({
     required String url, required String fileName,
-    List<Interceptor>? interceptors,
+    List<Interceptor>? interceptors, Options? options,  Map<String, dynamic>? queryParameters,
     void Function(int, int,)? onReceiveProgress,
   }) async {
-    /// Add request interceptors [interceptors]
+    ///ADDING INTERCEPTORS
+    if (interceptors != null) _dio.interceptors.addAll(interceptors,);
+    late Response response;
     try {
-      ///ADDING INTERCEPTORS
-      if (interceptors != null) _dio.interceptors.addAll(interceptors,);
-      ///Get temp directory
+      ///GETTING DOWNLOAD DIRECTORY + FILE INFO
       final dir = await path_provider.getApplicationDocumentsDirectory();
-      ///get directory for downloads
       final downloadDir = await Directory('${dir.path}/downloads',).create(recursive: true,);
-      ///create full file name
       final newFileName = fileName.replaceAll(" ", "-",);
       final fileExtension = path.extension(url,);
-      ///Path you need to store this file and open it
       final fileInfo = "${downloadDir.path}/$newFileName$fileExtension";
-      await _dio.download(url, fileInfo, onReceiveProgress: onReceiveProgress,);
+      ///FIRING REQUEST
+      response = await _dio.download(
+        url,
+        fileInfo,
+        queryParameters: queryParameters,
+        options: options,
+        onReceiveProgress: onReceiveProgress,
+      );
       final file = File(fileInfo,);
       if (await file.exists()) {
         if(Platform.isAndroid) await open_file.OpenFile.open(fileInfo,);
         if(Platform.isIOS) await open_file.OpenFile.open(fileInfo,);
         return true;
-      } else {
+      }
+      else {
         return false;
       }
-    } catch (e) {
-      ///All exceptions when using Dio, must be dio-error
-      if (e is DioError) e.exceptionErrorLog(CLASS_NAME,);
-      return false;
+    }
+    ///NETWORK FAILURE
+    catch (e) {
+      e.exceptionErrorLog(CLASS_NAME,);
+      if (e is DioError && (e.error is SocketException || e.error is WebSocketException)) {
+        return throw NetworkFailure<dynamic>(NetworkFailureType.offline, e,);
+      }
+      else if(e is DioError && (e.type == DioErrorType.connectTimeout || e.type == DioErrorType.receiveTimeout || e.type == DioErrorType.sendTimeout)) {
+        return throw NetworkFailure<dynamic>(NetworkFailureType.connectionTimeOut, e.error,);
+      }
+      else if(e is DioError && e.type == DioErrorType.cancel) {
+        return throw NetworkFailure<dynamic>(NetworkFailureType.cancelled, e,);
+      }
+      else {
+        return throw NetworkFailure<dynamic>(NetworkFailureType.unknown, e,);
+      }
     }
   }
 }

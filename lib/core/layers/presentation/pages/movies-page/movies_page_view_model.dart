@@ -1,6 +1,7 @@
 import 'package:stacked/stacked.dart';
 import 'package:untitled05/core/extras/helpers/base_view_model_helper.dart';
 import 'package:untitled05/core/extras/services/app-navigation-service/app_navigation_service.dart';
+import 'package:untitled05/core/extras/services/dio-network-service/dio_network_errors.dart';
 import 'package:untitled05/core/layers/data/repos/movies/movies_repository.dart';
 import 'package:untitled05/core/layers/domain/entities/movie-model/movie.dart';
 import 'package:untitled05/core/layers/domain/usecases/movies_usecase.dart';

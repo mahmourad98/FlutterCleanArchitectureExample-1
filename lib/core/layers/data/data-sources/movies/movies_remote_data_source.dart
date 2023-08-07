@@ -1,22 +1,23 @@
 import 'dart:io';
 import 'dart:ui';
-
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:untitled05/core/extras/constants/app_constants.dart';
 import 'package:untitled05/core/extras/constants/params_constants.dart';
 import 'package:untitled05/core/extras/helpers/remote_data_source_helper.dart';
+import 'package:untitled05/core/layers/data/data-models/common-response-model/common_response_model.dart';
 import 'package:untitled05/core/extras/services/dio-network-service/dio_network_errors.dart';
 import 'package:untitled05/core/extras/services/dio-network-service/dio_network_service.dart';
-import 'package:untitled05/core/layers/data/data-models/movies/movies_dto.dart';
 import 'package:untitled05/core/layers/data/data-sources/movies/movies_base_data_source.dart';
 import 'package:untitled05/out-buildings/dependency_injector.dart';
 
 class MoviesRemoteDataSource extends MoviesBaseDataSource with RemoteDataSourceHelper {
   final DioNetworkService _networkService = serviceLocator<DioNetworkService>();
-
+  ////////////////////
+  MoviesRemoteDataSource();
+  ////////////////////
   @override
-  Future<Either<NetworkFailure, MoviesDto>> getNowPlayingMovies({
+  Future<Either<dynamic, CommonResponse>> getNowPlayingMovies({
     bool localRequest = false, bool authRequest = false,
   }) async {
     ///ADDING HEADERS TO OUR REQUEST
@@ -38,14 +39,19 @@ class MoviesRemoteDataSource extends MoviesBaseDataSource with RemoteDataSourceH
         ),
         options: Options(headers: allHeaders,),
       );
-      return Right(MoviesDto.fromJson(result,),);
+      final commonResponse = CommonResponse.fromJson(result,);
+      return Right(commonResponse,);
+    } on NetworkError catch (error) {
+      return Left(error.failure.message,);
     } on NetworkFailure catch (failure) {
-      return Left(failure,);
+      return Left(failure.failure.message,);
+    } catch (error) {
+      return Left(error,);
     }
   }
-
+  ////////////////////
   @override
-  Future<Either<NetworkFailure, MoviesDto>> getMostPopularMovies({
+  Future<Either<dynamic, CommonResponse>> getMostPopularMovies({
     bool localRequest = false, bool authRequest = false,
   }) async {
     //ADDING HEADERS TO OUR REQUEST
@@ -67,14 +73,19 @@ class MoviesRemoteDataSource extends MoviesBaseDataSource with RemoteDataSourceH
         ),
         options: Options(headers: allHeaders,),
       );
-      return Right(MoviesDto.fromJson(result,),);
+      final commonResponse = CommonResponse.fromJson(result,);
+      return Right(commonResponse,);
+    } on NetworkError catch (error) {
+      return Left(error.failure.message,);
     } on NetworkFailure catch (failure) {
-      return Left(failure,);
+      return Left(failure.failure.message,);
+    } catch (error) {
+      return Left(error,);
     }
   }
-
+  ////////////////////
   @override
-  Future<Either<NetworkFailure, MoviesDto>> getTopRatedMovies({
+  Future<Either<dynamic, CommonResponse>> getTopRatedMovies({
     bool localRequest = false, bool authRequest = false,
   }) async {
     //ADDING HEADERS TO OUR REQUEST
@@ -96,10 +107,14 @@ class MoviesRemoteDataSource extends MoviesBaseDataSource with RemoteDataSourceH
         ),
         options: Options(headers: allHeaders,),
       );
-      return Right(MoviesDto.fromJson(result,),);
+      final commonResponse = CommonResponse.fromJson(result,);
+      return Right(commonResponse,);
+    } on NetworkError catch (error) {
+      return Left(error.failure.message,);
     } on NetworkFailure catch (failure) {
-      return Left(failure,);
+      return Left(failure.failure.message,);
+    } catch (error) {
+      return Left(error,);
     }
   }
-
 }

@@ -12,6 +12,7 @@ abstract class CommonResponse implements Built<CommonResponse, CommonResponseBui
   CommonResponse._();
   factory CommonResponse([void Function(CommonResponseBuilder b,) updates,]) = _$CommonResponse;
 
+
   @BuiltValueField(wireName: 'status',)
   bool? get status;
 

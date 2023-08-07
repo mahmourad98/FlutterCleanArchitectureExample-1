@@ -45,7 +45,7 @@ class GenericStateWrapperOnViewModel<T extends BaseViewModel> extends ViewModelW
       return specialErrorVisualizer!;
     } else {
       return GeneralErrorVisualisation(
-        message: MessageConstants.someErrorHappenedMessage,
+        message: err.toString(),
       );
     }
   }
