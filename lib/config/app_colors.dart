@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
+  static const Color primary = Color(0xFFD17D11,);
+  static const Color lightPrimary = Color(0xFFED9728,);
+  static const Color darkPrimary = Color(0xCCD17D11,);
+  /////////////////////////
+  static const Color grey1 = Color(0xFF525252,);
+  static const Color grey2 = Color(0xFF737477,);
+  static const Color grey3 = Color(0xFF868686,);
+  static const Color grey4 = Color(0xFF9E9E9E,);
+  static const Color grey5 = Color(0xFFA5A5A5,);
   static const Color kcPrimaryColor = Color(0xff22A45D,);
-  static const Color kcMediumGreyColor = Color(0xff868686,);
   static const Color redColor = Color.fromARGB(255, 225, 16, 16,);
   static const Color redColor_1 = Color.fromARGB(255, 231, 29, 115,);
   static const Color blueColor_1 = Color.fromARGB(255, 54, 169, 225,);
   static const Color blueColor_2 = Color.fromARGB(255, 45, 46, 131,);
-  static const Color whiteColor = Color.fromARGB(255, 255, 255, 255,);
+  static const Color white1 = Color.fromARGB(255, 255, 255, 255,);
   static const Color transparentColor = Colors.transparent;
   static const Color blackColor = Color.fromARGB(255, 14, 13, 13,);
   static const Color blackShadowColor = Color.fromARGB(255, 207, 203, 203,);
@@ -30,7 +38,7 @@ class AppColors {
   static const Color grey50Color = Color.fromRGBO(246, 246, 246, 1,);
   static const Color grey75Color = Color.fromRGBO(241, 241, 241, 1,);
   static const Color grey100Color = Color.fromRGBO(230, 230, 230, 1,);
-  static const Color grey200Color = Color.fromRGBO(165, 165, 165, 1,);
+
   static const Color grey500Color = Color.fromRGBO(117, 120, 123, 1,);
   static const Color greenColor = Color.fromRGBO(43, 159, 0, 1,);
   static const Color newGreenColor = Color.fromRGBO(0, 210, 122, 1.0,);

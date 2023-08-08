@@ -4,8 +4,8 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
-  flutter: ">=3.0.0 <3.10.0"
+  sdk: ">=2.17.0 <2.19.0"
+  flutter: ">=3.0.0 <3.7.2"
 
 dependencies:
   flutter:
@@ -71,7 +71,8 @@ dev_dependencies:
   freezed: any
 
 dependency_overrides:
-  stacked: 3.2.8
+  flutter_hooks: 0.18.6
+  stacked: 3.2.0
   stacked_services: 1.0.4
   device_preview: 1.1.0
   json_annotation: 4.8.0
@@ -101,9 +102,36 @@ flutter:
   fonts:
     - family: Cairo
       fonts:
+        - asset: assets/fonts/Cairo-ExtraLight.ttf
+          weight: 300
+        - asset: assets/fonts/Cairo-Light.ttf
+          weight: 400
         - asset: assets/fonts/Cairo-Regular.ttf
+          weight: 500
+        - asset: assets/fonts/Cairo-Medium.ttf
+          weight: 600
+        - asset: assets/fonts/Cairo-SemiBold.ttf
+          weight: 700
         - asset: assets/fonts/Cairo-Bold.ttf
+          weight: 800
+        - asset: assets/fonts/Cairo-ExtraBold.ttf
+          weight: 900
     - family: Poppins
       fonts:
+        - asset: assets/fonts/Poppins-Thin.ttf
+          weight: 200
+        - asset: assets/fonts/Poppins-ExtraLight.ttf
+          weight: 300
+        - asset: assets/fonts/Poppins-Light.ttf
+          weight: 400
         - asset: assets/fonts/Poppins-Regular.ttf
+          weight: 500
+        - asset: assets/fonts/Poppins-Medium.ttf
+          weight: 600
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+          weight: 700
         - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 800
+        - asset: assets/fonts/Poppins-ExtraBold.ttf
+          weight: 900
+

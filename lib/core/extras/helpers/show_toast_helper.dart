@@ -7,7 +7,7 @@ void showToast(String message, [bool isShort = true,]) {
     toastLength: isShort ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG,
     gravity: ToastGravity.BOTTOM,
     timeInSecForIosWeb: 1,
-    backgroundColor: AppColors.whiteColor,
+    backgroundColor: AppColors.white1,
     textColor: AppColors.greenColor,
     fontSize: 16.0,
   );
@@ -19,7 +19,7 @@ void showErrorToast(String message, [bool isShort = true,]) {
     toastLength: isShort ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG,
     gravity: ToastGravity.BOTTOM,
     timeInSecForIosWeb: 1,
-    backgroundColor: AppColors.whiteColor,
+    backgroundColor: AppColors.white1,
     textColor: AppColors.redColor,
     fontSize: 16.0,
   );

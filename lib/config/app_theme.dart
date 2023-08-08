@@ -1,53 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:untitled05/config/app_colors.dart';
+import 'package:untitled05/config/app_text_styles.dart';
 
 class AppTheme {
   static const bool isDarkTheme = false;
+  /////////////////////////
   static final ThemeData appThemeLight = ThemeData(
-    primaryColor: AppColors.graspGreenColor,
-    hintColor: AppColors.grey25Color,
+    primaryColor: AppColors.primary,
+    primaryColorLight: AppColors.lightPrimary,
+    primaryColorDark: AppColors.darkPrimary,
     brightness: Brightness.light,
-    scaffoldBackgroundColor: Colors.white,
+    scaffoldBackgroundColor: AppColors.white1,
+    disabledColor: AppColors.grey1,
+    hintColor: AppColors.grey2,
+    splashColor: isDarkTheme ? AppColors.darkPrimary : AppColors.lightPrimary,
     appBarTheme: const AppBarTheme(
       centerTitle: true,
       color: Colors.transparent,
       elevation: 0.0,
       titleTextStyle: TextStyle(
-        fontSize: 20.0,
-        fontWeight: FontWeight.w500,
-        color: Colors.black,
-      ),
-    ),
-    textTheme: const TextTheme(
-      bodyMedium: TextStyle(
-        height: 1.3,
-        fontSize: 22.0,
-        color: Colors.white,
-        fontWeight: FontWeight.bold,
+        fontSize: FontSizeManager.s20,
+        fontWeight: FontWeightManager.medium,
+        color: AppColors.white1,
       ),
     ),
   );
+  /////////////////////////
   static final ThemeData appThemeDark = ThemeData(
-    primaryColor: AppColors.graspGreenColor,
-    hintColor: AppColors.grey25Color,
-    brightness: Brightness.light,
-    scaffoldBackgroundColor: Colors.white,
+    primaryColor: AppColors.primary,
+    primaryColorLight: AppColors.lightPrimary,
+    primaryColorDark: AppColors.darkPrimary,
+    brightness: Brightness.dark,
+    scaffoldBackgroundColor: AppColors.grey5,
+    disabledColor: AppColors.grey1,
+    hintColor: AppColors.grey2,
+    splashColor: isDarkTheme ? AppColors.darkPrimary : AppColors.lightPrimary,
     appBarTheme: const AppBarTheme(
       centerTitle: true,
       color: Colors.transparent,
       elevation: 0.0,
       titleTextStyle: TextStyle(
-        fontSize: 20.0,
-        fontWeight: FontWeight.w500,
-        color: Colors.black,
-      ),
-    ),
-    textTheme: const TextTheme(
-      bodyMedium: TextStyle(
-        height: 1.3,
-        fontSize: 22.0,
-        color: Colors.white,
-        fontWeight: FontWeight.bold,
+        fontSize: FontSizeManager.s20,
+        fontWeight: FontWeightManager.medium,
+        color: AppColors.white1,
       ),
     ),
   );
