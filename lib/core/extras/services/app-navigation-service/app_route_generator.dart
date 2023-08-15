@@ -5,7 +5,7 @@ import 'package:untitled05/core/layers/presentation/pages/splash-page/splash_pag
 
 class AppRouter{
   const AppRouter._();
-
+  /////////////////////////
   static Route onGenerateRoute(RouteSettings routeSettings,){
     switch (routeSettings.name){
       case SplashPageView.routeName:

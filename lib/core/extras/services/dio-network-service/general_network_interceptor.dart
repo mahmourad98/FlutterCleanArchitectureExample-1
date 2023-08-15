@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -20,42 +21,37 @@ class GeneralRequestAndResponseInterceptor extends Interceptor {
     final token = prefs.getString(SharedPrefsKeys.ACCESS_TOKEN,);
     final local = serviceLocator<AppLocalizationService>().currentLocale;
     if (local.languageCode.isEmpty) {
-      options.headers["locale"] = SupportedLanguage.languageCodes.first;
+      options.headers[HttpHeaders.acceptLanguageHeader] = SupportedLanguage.languageCodes.first;
     }
     else {
-      options.headers["locale"] = local.languageCode;
+      options.headers[HttpHeaders.acceptLanguageHeader] = local.languageCode;
     }
     if (token != null && token.isNotEmpty) {
-      options.headers["Authorization"] = "Bearer $token";
+      options.headers[HttpHeaders.authorizationHeader] = "Bearer $token";
     }
     return handler.next(options,);
   }
   /////////////////////////
   @override
   void onResponse(Response<Object?> response, ResponseInterceptorHandler handler,) async {
-    if (response.statusCode == HttpStatus.unauthorized) {
-      try{
-        //ToDo: Update Your Token Here
-        //final prefs = await SharedPreferences.getInstance();
-        //final token = prefs.getString(SharedPrefsKeys.ACCESS_TOKEN,);
-        //if (token == null || token.isEmpty) throw Exception("could-not-revoke-token",);
-        //final otherResponse = await dio.get<dynamic>("/revokeAccessToken",);
-        //if (otherResponse.statusCode != HttpStatus.ok) throw Exception("could-not-revoke-token",);
-        //response.headers.add("Authorization", "Bearer ${newAccessToken!}",);
-        return handler.resolve(response,);
-      } catch (e) {
-        serviceLocator<AppNavigationService>().clearStackAndShow(routeName: SplashPageView.routeName,);
-        return handler.reject(DioError(requestOptions: response.requestOptions,),);
-      }
-    }
-    return handler.next(response,);
+    return super.onResponse(response, handler,);
   }
   /////////////////////////
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
-    if (err.response?.statusCode == HttpStatus.unauthorized) {
-      serviceLocator<AppNavigationService>().clearStackAndShow(routeName: SplashPageView.routeName,);
-      return handler.reject(DioError(requestOptions: err.response!.requestOptions,),);
+    if (err.error is IOException || err.error is SocketException || err.error is WebSocketException) {
+      return handler.reject(
+        DioError(
+          requestOptions: err.requestOptions, response: err.response, error: err, type: DioErrorType.other,
+        ),
+      );
+    }
+    else if (err.error is TimeoutException) {
+      return handler.reject(
+        DioError(
+          requestOptions: err.requestOptions, response: err.response, error: err, type: DioErrorType.connectTimeout,
+        ),
+      );
     }
     return handler.next(err,);
   }

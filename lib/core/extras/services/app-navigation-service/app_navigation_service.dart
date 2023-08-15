@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:untitled05/core/extras/services/app-navigation-service/app_navigation_observer.dart';
 
-class AppNavigationService{
+class AppNavigationService {
   ///DEFAULT CONSTRUCTOR
   AppNavigationService();
   /////////////////////////
   final GlobalKey<NavigatorState> _navKey = GlobalKey<NavigatorState>();
   GlobalKey<NavigatorState> get navKey => _navKey;
   /////////////////////////
-  final NavigatorObserver _navObserver = NavigatorObserver();
-  NavigatorObserver get navObserver => _navObserver;
+  final AppNavigationObserver _navObserver = AppNavigationObserver();
+  AppNavigationObserver get navObserver => _navObserver;
+  /////////////////////////
+  String? get currentRouteName => _navObserver.currentRouteName;
   /////////////////////////
   void goBack<T>([T? results,]) {
     return _navKey.currentState!.pop<T>(results,);
