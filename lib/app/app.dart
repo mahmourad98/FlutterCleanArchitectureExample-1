@@ -8,13 +8,13 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:untitled05/config/app_config.dart';
 import 'package:untitled05/config/app_theme.dart';
 import 'package:untitled05/config/supported_languages.dart';
-import 'package:untitled05/core/extras/services/app-localization-service/app_localization_delegate.dart';
-import 'package:untitled05/core/extras/services/app-localization-service/app_localization_service.dart';
-import 'package:untitled05/core/extras/services/app-navigation-service/app_navigation_service.dart';
-import 'package:untitled05/core/extras/services/app-navigation-service/app_route_generator.dart';
-import 'package:untitled05/core/extras/utils/app_keyboard_hider_utility.dart';
-import 'package:untitled05/core/extras/utils/app_life_cycle_wrapper_utility.dart';
-import 'package:untitled05/core/layers/presentation/pages/splash-page/splash_page_view.dart';
+import 'package:untitled05/extras/services/app-localization-service/app_localization_delegate.dart';
+import 'package:untitled05/extras/services/app-localization-service/app_localization_service.dart';
+import 'package:untitled05/extras/services/app-navigation-service/app_navigation_service.dart';
+import 'package:untitled05/extras/services/app-navigation-service/app_route_generator.dart';
+import 'package:untitled05/extras/utils/app_keyboard_hider_utility.dart';
+import 'package:untitled05/extras/utils/app_life_cycle_wrapper_utility.dart';
+import 'package:untitled05/core/presentation/pages/splash-page/splash_page_view.dart';
 import 'package:untitled05/out-buildings/dependency_injector.dart';
 
 class MyApplication extends StatelessWidget {

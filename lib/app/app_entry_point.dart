@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:untitled05/app/app.dart';
-import 'package:untitled05/core/extras/helpers/base_view_model_helper.dart';
+import 'package:untitled05/extras/helpers/base_view_model_helper.dart';
 import 'package:untitled05/out-buildings/app_environment.dart';
 
 class MyAppEntryPoint extends StatelessWidget {
