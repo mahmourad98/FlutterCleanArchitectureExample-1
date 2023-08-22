@@ -20,12 +20,11 @@ import 'package:untitled05/out-buildings/dependency_injector.dart';
 class MyApplication extends StatelessWidget {
   static const _key = ValueKey("my-app",);
   static const _app = MyApplication._(key: _key,);
-
+  /////////////////////////
   const MyApplication._({Key? key,}) : super(key: key,);
   factory MyApplication() => _app;
-
-  @override
-  Widget build(BuildContext context,) {
+  /////////////////////////
+  @override Widget build(BuildContext context,) {
     if(Platform.isAndroid) {
       return MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -45,8 +44,10 @@ class MyApplication extends StatelessWidget {
         },
         navigatorKey: serviceLocator<AppNavigationService>().navKey,
         navigatorObservers: _navigationObservers,
-        initialRoute: SplashPageView.routeName,
-        onGenerateInitialRoutes: (_,) => [AppRouter.onGenerateRoute(RouteSettings(name: _, arguments: null,),),],
+        initialRoute: AppRouteNames.SPLASH_PAGE,
+        onGenerateInitialRoutes: (String initialRouteName,) => [
+          AppRouter.onGenerateRoute(RouteSettings(name: initialRouteName, arguments: null,),),
+        ],
         routes: const <String, WidgetBuilder>{},
         onGenerateRoute: AppRouter.onGenerateRoute,
         onUnknownRoute: AppRouter.onGenerateRoute,
